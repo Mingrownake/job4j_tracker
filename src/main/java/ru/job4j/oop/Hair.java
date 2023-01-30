@@ -1,15 +1,11 @@
 package ru.job4j.oop;
 
-public class Wolf {
+public class Hair {
 
     private boolean runResult;
 
     public void setCondition(boolean condition) {
         this.runResult = condition;
-    }
-
-    public void eat(Girl girl) {
-
     }
 
     public void tryEat(Ball ball) {
