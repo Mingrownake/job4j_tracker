@@ -72,4 +72,16 @@ public class MaxTest {
         int expected = 10;
         assertThat(result).isEqualTo(expected);
     }
+
+    @Test
+    public void whenMax100To2And5And7And8Then100() {
+        int left = 7;
+        int right = 2;
+        int last = 5;
+        int first = 10;
+        int second = 100;
+        int result = Max.max(second, left, right, last, first);
+        int expected = 100;
+        assertThat(result).isEqualTo(expected);
+    }
 }
