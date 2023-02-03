@@ -39,4 +39,22 @@ public class PointTest {
         double out = firstPoint.distance(secondPoint);
         Assert.assertEquals(expected, out, 0.01);
     }
+
+    @Test
+    public void when1to1to1And1to1to1then0() {
+        double expected = 0;
+        Point firstPoint = new Point(1, 1, 1);
+        Point secondPoint = new Point(1, 1, 1);
+        double out = firstPoint.distance3d(secondPoint);
+        Assert.assertEquals(expected, out, 0.01);
+    }
+
+    @Test
+    public void when5to4to3And8to7to5then0() {
+        double expected = 5.19;
+        Point firstPoint = new Point(5, 4, 3);
+        Point secondPoint = new Point(8, 7, 6);
+        double out = firstPoint.distance3d(secondPoint);
+        Assert.assertEquals(expected, out, 0.01);
+    }
 }
