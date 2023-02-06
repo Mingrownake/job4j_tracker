@@ -16,7 +16,6 @@ public class Animal {
             animal.instanceInvoke();
             cat.instanceInvoke();
             Animal.staticInvoke();
-          //  Animal.Catt.staticInvoke();
         }
     }
 }
