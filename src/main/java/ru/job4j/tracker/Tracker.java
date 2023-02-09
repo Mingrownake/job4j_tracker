@@ -1,7 +1,6 @@
 package ru.job4j.tracker;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class Tracker {
     private final Item[] items = new Item[100];
@@ -15,15 +14,10 @@ public class Tracker {
     }
 
     public Item findById(int id) {
-        Item rsl = null;
-        for (int index = 0; index < size; index++) {
-            Item item = items[index];
-            if (item.getId() == id) {
-                rsl = item;
-                break;
-            }
-        }
-        return rsl;
+        /* Находим индекс */
+        int index = indexOf(id);
+        /* Если индекс найден возвращаем item, иначе null */
+        return index != -1 ? items[index] : null;
     }
 
     public Item[] findAll() {
@@ -32,12 +26,11 @@ public class Tracker {
         for (int index = 0; index < items.length; index++) {
             Item itemToAdd = items[index];
             if (itemToAdd != null) {
-                addedAllItems[index] = itemToAdd;
+                addedAllItems[size] = itemToAdd;
                 size++;
             }
         }
-        addedAllItems = Arrays.copyOf(addedAllItems, size);
-        return addedAllItems;
+        return Arrays.copyOf(addedAllItems, size);
     }
 
     public Item[] findByName(String key) {
@@ -47,12 +40,22 @@ public class Tracker {
             Item itemToAdd = items[index];
             if (itemToAdd != null) {
                 if (key.equals(itemToAdd.getName())) {
-                    addedItemsByName[index] = itemToAdd;
+                    addedItemsByName[size] = itemToAdd;
                     size++;
                 }
             }
         }
-        addedItemsByName = Arrays.copyOf(addedItemsByName, size);
-        return addedItemsByName;
+        return Arrays.copyOf(addedItemsByName, size);
+    }
+
+    private int indexOf(int id) {
+        int rsl = -1;
+        for (int index = 0; index < size; index++) {
+            if (items[index].getId() == id) {
+                rsl = index;
+                break;
+            }
+        }
+        return rsl;
     }
 }
