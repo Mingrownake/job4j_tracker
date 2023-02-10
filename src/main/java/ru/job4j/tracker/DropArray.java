@@ -9,7 +9,6 @@ public class DropArray {
         System.out.println(Arrays.toString(names));
     }
 }
-
 /**
  * System.arraycopy(source, startPos, dist, distPos, length);
  * source - массив откуда нужно скопировать элементы начиная с позиции startPos
