@@ -26,8 +26,7 @@ public class Tracker {
         for (int index = 0; index < items.length; index++) {
             Item itemToAdd = items[index];
             if (itemToAdd != null) {
-                addedAllItems[size] = itemToAdd;
-                size++;
+                addedAllItems[size++] = itemToAdd;
             }
         }
         return Arrays.copyOf(addedAllItems, size);
@@ -40,8 +39,7 @@ public class Tracker {
             Item itemToAdd = items[index];
             if (itemToAdd != null) {
                 if (key.equals(itemToAdd.getName())) {
-                    addedItemsByName[size] = itemToAdd;
-                    size++;
+                    addedItemsByName[size++] = itemToAdd;
                 }
             }
         }
