@@ -17,7 +17,17 @@ public class StartUI {
                 Item item = new Item(name);
                 tracker.add(item);
                 System.out.println("Added a new item: " + item);
-            } else {
+            } else if (select == 1) {
+                System.out.println("=== Show all Items");
+                Item[] items = tracker.findAll();
+                if (items.length > 0) {
+                    for (Item item : items) {
+                        System.out.println(item);
+                    }
+                } else {
+                    System.out.println("The storage has no items.");
+                }
+            } else if (select == 6) {
                 run = false;
             }
         }
