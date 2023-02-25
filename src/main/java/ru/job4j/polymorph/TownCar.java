@@ -25,4 +25,9 @@ public class TownCar implements Vehicle, Fuel {
     public void refill() {
         System.out.println("Заправить 60л в старое корыто.");
     }
+
+    @Override
+    public void chargeBattery() {
+        Vehicle.super.chargeBattery();
+    }
 }
