@@ -30,4 +30,9 @@ public class SportCar implements Vehicle, Fuel {
     public void chargeBattery() {
         System.out.println("Аккумулятор в багажнике. Зарядить.");
     }
+
+    @Override
+    public void chargeBatteryTime() {
+        System.out.println("Время зарядки 45 мин.");
+    }
 }

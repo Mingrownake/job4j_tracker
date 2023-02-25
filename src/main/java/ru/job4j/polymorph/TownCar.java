@@ -30,4 +30,10 @@ public class TownCar implements Vehicle, Fuel {
     public void chargeBattery() {
         Vehicle.super.chargeBattery();
     }
+
+    @Override
+    public void chargeBatteryTime() {
+        Vehicle.super.chargeBatteryTime();
+    }
+
 }
