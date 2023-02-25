@@ -2,7 +2,7 @@ package ru.job4j.polymorph;
 
 public interface Vehicle extends Fuel {
 
-    int WHEELS = 4; // = public static final int WHEELS = 4;
+    int WHEELS = 4;
     String STEERWHEEL = "round";
 
     void accelerate();
