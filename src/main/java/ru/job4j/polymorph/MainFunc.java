@@ -8,6 +8,6 @@ public class MainFunc implements Func1, Func2 {
 
     @Override
     public void funcMessage() {
-        Func1.super.funcMessage();
+        Func2.super.funcMessage();
     }
 }
