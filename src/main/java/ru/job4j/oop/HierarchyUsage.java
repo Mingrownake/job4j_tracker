@@ -13,8 +13,8 @@ public class HierarchyUsage {
         /* Приведение типа за счет понижения по иерархии. */
         Car2 carFromObject = (Car2) ocar;
 
-        /* Ошибка в приведении типа. */
-        Object bicycle = new Bicycle();
-        Car2 cb = (Car2) bicycle; // код завершится с ошибкой приведения типов ClassCastException
+        System.out.println(new Car2());
+        System.out.println(new Bicycle());
+        System.out.println(new Object());
     }
 }
