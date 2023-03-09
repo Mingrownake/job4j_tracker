@@ -10,11 +10,10 @@ public class JdbcConfigTryCatch {
 
     public static void main(String[] args) {
         try {
-            load("jdbc://localhost:800");
+            load(null);
         } catch (UserInputException e) {
             e.printStackTrace();
         }
-
     }
 }
 
