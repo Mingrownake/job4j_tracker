@@ -5,10 +5,8 @@ public class UserStore {
         for (User user : users) {
             if (user.getUsername().equals(login)) {
                 return user;
-            } else {
-                throw new UserNotFoundException("The user "
-                        + login + " was not found.");
             }
+            throw new UserNotFoundException("The user " + login + " was not found.");
         }
         return null;
     }
@@ -16,15 +14,13 @@ public class UserStore {
     public static boolean validate(User user) throws UserInvalidException {
         if (user.getUsername().length() >= 3 && user.isValid()) {
             return true;
-        } else {
-            throw new UserInvalidException("The user "
-                    + user.getUsername() + " is not valid.");
         }
+        throw new UserInvalidException("The user " + user.getUsername() + " is not valid.");
     }
 
     public static void main(String[] args) throws UserNotFoundException {
         User[] users = {
-                new User("Qwe", false)
+                new User("Qwe", true)
         };
         User user = findUser(users, "Qwe");
         try {
