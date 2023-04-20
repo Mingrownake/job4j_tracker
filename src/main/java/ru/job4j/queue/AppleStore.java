@@ -1,5 +1,6 @@
 package ru.job4j.queue;
 
+import java.util.Objects;
 import java.util.Queue;
 
 public class AppleStore {
@@ -16,13 +17,14 @@ public class AppleStore {
         for (int i = 0; i < count - 1; i++) {
             queue.poll();
         }
-        return queue.element().name();
+        return Objects.requireNonNull(queue.poll()).name();
     }
 
     public String getFirstUpsetCustomer() {
         for (int i = 0; i < count; i++) {
             queue.poll();
         }
-        return queue.element().name();
+        assert queue.peek() != null;
+        return queue.peek().name();
     }
 }
