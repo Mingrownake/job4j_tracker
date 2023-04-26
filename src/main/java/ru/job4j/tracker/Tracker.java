@@ -1,32 +1,31 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tracker {
-    /* private final Item[] items = new Item[100]; */
-    ArrayList<Item> items = new ArrayList<>(100);
+    List<Item> items = new ArrayList<>();
     private int ids = 1;
     private int size = 0;
 
     public Item add(Item item) {
         item.setId(ids++);
-      /*  items[size++] = item; */
         items.add(size++, item);
         return item;
     }
 
     public Item findById(int id) {
-            return items.isEmpty() ? null : items.get(indexOf(id));
+        int res = indexOf(id);
+            return items.isEmpty() ? null : items.get(res);
     }
 
-    public ArrayList<Item> findAll() {
-        return items;
+    public List<Item> findAll() {
+        return List.copyOf(items);
     }
 
-    public ArrayList<Item> findByName(String key) {
-        ArrayList<Item> res = new ArrayList<>();
-        for (int index = 0; index < size; index++) {
-            Item item = items.get(index);
+    public List<Item> findByName(String key) {
+        List<Item> res = new ArrayList<>();
+        for (Item item : items) {
             if (key.equals(item.getName())) {
                 res.add(item);
             }
@@ -36,14 +35,12 @@ public class Tracker {
 
     private int indexOf(int id) {
         int rsl = -1;
-        if (!items.isEmpty()) {
-            for (int index = 0; index < size; index++) {
-                if (items.get(index).getId() == id) {
-                    rsl = index;
-                    break;
+        for (int index = 0; index < items.size(); index++) {
+            if (items.get(index).getId() == id) {
+                rsl = index;
+                break;
                 }
             }
-        }
         return rsl;
     }
 
@@ -51,10 +48,8 @@ public class Tracker {
         int index = indexOf(id);
         boolean rsl = index != -1;
         if (rsl) {
-            items.remove(index);
             item.setId(id);
-            items.add(index, item);
-
+            items.set(index, item);
         }
         return rsl;
     }
