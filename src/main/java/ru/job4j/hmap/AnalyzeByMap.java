@@ -55,8 +55,8 @@ public class AnalyzeByMap {
             }
             Label label = new Label(pupil.name(), res);
             labelList.add(label);
-            labelList.sort(Comparator.naturalOrder());
         }
+        labelList.sort(Comparator.naturalOrder());
         return labelList.get(labelList.size() - 1);
     }
 
@@ -72,8 +72,8 @@ public class AnalyzeByMap {
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             int score = entry.getValue();
             labelList.add(new Label(entry.getKey(), score));
-            labelList.sort(Comparator.naturalOrder());
         }
+        labelList.sort(Comparator.naturalOrder());
         return labelList.get(labelList.size() - 1);
     }
 }
