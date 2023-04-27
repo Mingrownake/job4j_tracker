@@ -4,19 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tracker {
-    List<Item> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
     private int ids = 1;
-    private int size = 0;
 
     public Item add(Item item) {
         item.setId(ids++);
-        items.add(size++, item);
+        items.add(item);
         return item;
     }
 
     public Item findById(int id) {
-        int res = indexOf(id);
-            return items.isEmpty() ? null : items.get(res);
+        int index = indexOf(id);
+        return index != -1 ? items.get(index) : null;
     }
 
     public List<Item> findAll() {
