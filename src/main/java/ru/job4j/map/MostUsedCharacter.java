@@ -6,7 +6,6 @@ public class MostUsedCharacter {
     public static char getMaxCount(String str) {
         str = str.toLowerCase().replaceAll(" ", "");
         TreeMap<Character, Integer> map = new TreeMap<>();
-        //char rsl = ' ';
         for (char ch : str.toCharArray()) {
             if (!map.containsKey(ch)) {
                 map.putIfAbsent(ch, 1);
