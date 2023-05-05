@@ -6,13 +6,13 @@ import java.util.Map;
 public class ComputeIfAbsentExample {
     public static void main(String[] args) {
         Map<Integer, String> map = new HashMap<>();
-        map.put(1, "first"); // добавляем пару ключ-значение
+        map.put(1, "first");
         System.out.println(map);
-        map.computeIfAbsent(2, key -> "second" + "_" + key); // вычисляем значение для ключа, которого нет в отображении
-        System.out.println(map.get(2)); // будет выведено second_2
+        map.computeIfAbsent(2, key -> "second" + "_" + key);
+        System.out.println(map.get(2));
         System.out.println(map);
-        map.computeIfAbsent(1, key -> "first" + "_" + key); // вычисляем значение для ключа, которого нет в отображении
-        System.out.println(map.get(1)); // будет выведено first, т.е. значение не изменилось
+        map.computeIfAbsent(1, key -> "first" + "_" + key);
+        System.out.println(map.get(1));
         System.out.println(map);
     }
 }
