@@ -71,7 +71,7 @@ public class JobTest {
     public void whenComparatorByPriorityAscAndByNameDesc() {
         Comparator<Job> cmpNamePriority = new JobAscByPriority().thenComparing(new JobDescByName());
         int rsl = cmpNamePriority.compare(
-                new Job("Code", 0),
+                new Job("Coding", 1),
                 new Job("Code", 1)
         );
         assertThat(rsl).isLessThan(0);
