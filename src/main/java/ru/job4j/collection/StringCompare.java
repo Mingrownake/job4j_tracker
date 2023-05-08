@@ -5,30 +5,16 @@ import java.util.Comparator;
 public class StringCompare implements Comparator<String> {
     @Override
     public int compare(String left, String right) {
-        char[] leftStr = left.toCharArray();
-        char[] rightStr = right.toCharArray();
-
         int res = 0;
-        boolean flag = false;
-        if (leftStr.length < rightStr.length) {
-            for (int i = 0; i < leftStr.length; i++) {
-                if (leftStr[i] != rightStr[i]) {
-                    res = Character.compare(leftStr[i], rightStr[i]);
-                    flag = true;
-                    break;
-                }
+        int minLength = Math.min(left.length(), right.length());
+        for (int i = 0; i < minLength; i++) {
+            if (left.charAt(i) != right.charAt(i)) {
+                res = Character.compare(left.charAt(i), right.charAt(i));
+                break;
             }
-        } else {
-            for (int i = 0; i < rightStr.length; i++) {
-                if (leftStr[i] != rightStr[i]) {
-                    res = Character.compare(leftStr[i], rightStr[i]);
-                    flag = true;
-                    break;
-                }
+            if (res == 0) {
+                res = Integer.compare(left.length(), right.length());
             }
-        }
-        if (!flag) {
-            res = Integer.compare(leftStr.length, rightStr.length);
         }
         return res;
     }
