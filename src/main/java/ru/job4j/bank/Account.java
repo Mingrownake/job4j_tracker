@@ -1,6 +1,12 @@
 package ru.job4j.bank;
 
 import java.util.Objects;
+/**
+ * Класс описывает работу банковского счёта.
+ * @author KATYA
+ * @version 1.01
+ * @since 26.04.2023
+ */
 
 public class Account {
     private String requisite;
@@ -11,17 +17,35 @@ public class Account {
         this.balance = balance;
     }
 
+    /**
+     * @return Метод возвращает реквизиты счёта.
+     */
     public String getRequisite() {
         return requisite;
     }
+
+    /**
+     * Метод устанавливает реквизиты счёта.
+     * @param requisite реквизиты, которые передаются в метод.
+     */
 
     public void setRequisite(String requisite) {
         this.requisite = requisite;
     }
 
+    /**
+     * Метод возвращает баланс счёта
+     * @return balance возвращает баланс счёта
+     */
+
     public double getBalance() {
         return balance;
     }
+
+    /**
+     * Метод утанавливает баланс счёта.
+     * @param balance баланс, который передаётся в метод.
+     */
 
     public void setBalance(double balance) {
         this.balance = balance;
