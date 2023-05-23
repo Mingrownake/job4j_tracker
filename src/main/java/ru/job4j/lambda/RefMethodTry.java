@@ -14,3 +14,4 @@ public class RefMethodTry {
         names.forEach(consumer);
     }
 }
+
