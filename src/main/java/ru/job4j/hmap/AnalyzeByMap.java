@@ -34,11 +34,11 @@ public class AnalyzeByMap {
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
         List<Label> labelList = new LinkedList<>();
         Map<String, Integer> map = new LinkedHashMap<>();
-        BiFunction<Integer, Integer, Integer> function =
+        BiFunction<Integer, Integer, Integer> func1 =
                 (oldValue, newValue) -> oldValue + newValue;
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                map.merge(subject.name(), subject.score(), function);
+                map.merge(subject.name(), subject.score(), func1);
             }
         }
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
