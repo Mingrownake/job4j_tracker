@@ -5,16 +5,20 @@ import java.util.function.Supplier;
 public class ScopeInside2 {
     public static void main(String[] args) {
         String ayyyy = "ayyyyywww";
-        String name = echo(
+        String name = returnString(
                 () -> {
-                    return ayyyy;
+                    return ayyyy + ayyyy;
                 }
         );
         System.out.println(name);
     }
 
-    private static String echo(Supplier<String> supplier) {
-        String sound = supplier.get();
+    private static String returnString(Supplier<String> supplierO) {
+        /**
+         * вызов метода get у экз Supplier
+         * зарисывается  в переменную String sound
+         */
+        String sound = supplierO.get();
         return sound + " " + sound + " " + sound;
     }
 }

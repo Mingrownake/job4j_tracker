@@ -8,7 +8,7 @@ public class Model {
     }
 
     Model(String str) {
-        name = str;
+        this.name = str;
     }
 
     String getName() {
