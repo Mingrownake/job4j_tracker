@@ -113,4 +113,22 @@ public class BankServiceTest {
         bank.addAccount(user.getPassport(), new Account("1122", 300D));
         assertThat(bank.findByRequisite("3434", "1122").getBalance()).isEqualTo(300D);
     }
+
+    @Test
+    public void whenFindByPassportIsOk() {
+        User user = new User("1234", "Igor Petrov");
+        BankService bank = new BankService();
+        bank.addUser(user);
+        assert bank.findByPassport("1234").equals(user);
+    }
+
+    @Test
+    public void whenFindByRequisiteIsOk() {
+        User user = new User("1234", "Igor Petrov");
+        BankService bank = new BankService();
+        Account account = new Account("testreq", 0);
+        bank.addUser(user);
+        bank.addAccount("1234", account);
+        assert bank.findByRequisite("1234", "testreq").equals(account);
+    }
 }
