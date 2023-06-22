@@ -17,12 +17,11 @@ public class PriorityQueue {
      * Метод принимает на вход заявку и добавляет ее в очередь.
      * Если встречаются 2 задания с одинаковым приоритетом, то в очереди
      * они распределяются по принципу FIFO.
-     * @param task
      */
 
     public void put(Task task) {
-        int index = 0;
-        for (Task element : tasks) {
+        var index = 0;
+        for (var element : tasks) {
             if (task.getPriority() < element.getPriority()) {
                 break;
             }
