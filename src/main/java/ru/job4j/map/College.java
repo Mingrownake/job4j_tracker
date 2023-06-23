@@ -31,6 +31,7 @@ public class College {
             for (Subject subject : subjects) {
                 if (subject.getName().equals(name)) {
                     resultSubject = Optional.of(subject);
+                    break;
                 }
             }
         }
