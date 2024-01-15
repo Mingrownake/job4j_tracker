@@ -1,11 +1,14 @@
 package ru.job4j.tracker;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemTracker {
+public class MemTracker implements Store {
     private final List<Item> items = new ArrayList<>();
     private int ids = 1;
+
+    private Connection connection;
 
     public Item add(Item item) {
         item.setId(ids++);
@@ -53,12 +56,20 @@ public class MemTracker {
         return rsl;
     }
 
-    public boolean delete(int id) {
-        int index = indexOf(id);
-        boolean rsl = index != -1;
-        if (rsl) {
-            items.remove(index);
+    public void delete(int id) {
+//        int index = indexOf(id);
+//        boolean rsl = index != -1;
+//        if (rsl) {
+//            items.remove(index);
+//        }
+        items.remove(indexOf(id));
+    }
+
+    @Override
+    public void close() throws Exception {
+        if (connection != null) {
+            connection.close();
         }
-        return rsl;
+
     }
 }

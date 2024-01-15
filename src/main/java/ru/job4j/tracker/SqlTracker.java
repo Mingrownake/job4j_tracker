@@ -1,10 +1,9 @@
 package ru.job4j.tracker;
 
+import ru.job4j.stream.mapto.Person;
+
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Properties;
 
@@ -21,7 +20,7 @@ public class SqlTracker implements Store {
 
     private void init() throws SQLException {
         try  (InputStream input = SqlTracker.class.getClassLoader()
-                .getResourceAsStream("app.proprties")) {
+                .getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(input);
             Class.forName(config.getProperty("driver-class-name"));
@@ -44,7 +43,29 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        return null;
+//        try (Statement statement = connection.createStatement()) {
+//            String sql =
+//                    String.format("INSERT INTO item (name, created_date) VALUES ('%s', '%s')"
+//                                    + "RETURNING (id);",
+//                            item.getName(),
+//                            item.getLocalDateTime().toLocalDate()
+//                    );
+//            statement.execute(sql);
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement("INSERT INTO item (name, created_date) VALUES (?, ?)",
+                PreparedStatement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, item.getName());
+            preparedStatement.setString(2, String.valueOf(item.getLocalDateTime().toLocalDate()));
+            preparedStatement.execute();
+            try (ResultSet generatedKey = preparedStatement.getGeneratedKeys()) {
+                if (generatedKey.next()) {
+                    item.setId(generatedKey.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return item;
     }
 
     @Override
