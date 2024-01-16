@@ -10,7 +10,7 @@ import java.util.Properties;
 public class SqlTracker implements Store {
     private Connection connection;
 
-    public  SqlTracker() {
+    public SqlTracker() {
         init();
     }
 
@@ -19,7 +19,7 @@ public class SqlTracker implements Store {
     }
 
     private void init() {
-        try  (InputStream input = SqlTracker.class.getClassLoader()
+        try (InputStream input = SqlTracker.class.getClassLoader()
                 .getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(input);
@@ -44,7 +44,8 @@ public class SqlTracker implements Store {
     @Override
     public Item add(Item item) {
         try (PreparedStatement preparedStatement
-                     = connection.prepareStatement("INSERT INTO item (name, created_date) VALUES (?, ?)",
+                     = connection.prepareStatement(
+                "INSERT INTO item (name, created_date) VALUES (?, ?)",
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, item.getName());
             preparedStatement.setString(2, String.valueOf(item.getLocalDateTime().toLocalDate()));
@@ -62,14 +63,18 @@ public class SqlTracker implements Store {
 
     @Override
     public boolean replace(int id, Item item) {
-//        try (PreparedStatement preparedStatement
-//                = connection.prepareStatement("UPDATE item SET name = ? "
-//                + "WHERE id = ?")) {
-//            preparedStatement.setString(1, item.getName());
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-        return false;
+        if (findById(id) != null) {
+            try (PreparedStatement preparedStatement
+                         = connection.prepareStatement(
+                    "UPDATE item SET name = ? WHERE id = ?")) {
+                preparedStatement.setString(1, item.getName());
+                preparedStatement.setInt(2, id);
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
 
     @Override
@@ -130,8 +135,8 @@ public class SqlTracker implements Store {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     if (Objects.equals(resultSet.getInt("id"), id)) {
-                         itemById = new Item(resultSet.getString("name"),
-                                 resultSet.getInt("id"));
+                        itemById = new Item(resultSet.getString("name"),
+                                resultSet.getInt("id"));
                     }
                 }
             }
