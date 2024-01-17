@@ -41,8 +41,8 @@ public class MemTracker implements Store {
             if (items.get(index).getId() == id) {
                 rsl = index;
                 break;
-                }
             }
+        }
         return rsl;
     }
 
@@ -57,7 +57,11 @@ public class MemTracker implements Store {
     }
 
     public void delete(int id) {
-        items.remove(indexOf(id));
+        int index = indexOf(id);
+        boolean rsl = index != -1;
+        if (rsl) {
+            items.remove(index);
+        }
     }
 
     @Override
