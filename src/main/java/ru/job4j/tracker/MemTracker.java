@@ -57,11 +57,11 @@ public class MemTracker implements Store {
     }
 
     public void delete(int id) {
-//        int index = indexOf(id);
-//        boolean rsl = index != -1;
-//        if (rsl) {
-//            items.remove(index);
-//        }
+        int index = indexOf(id);
+        boolean rsl = index != -1;
+        if (rsl) {
+            items.remove(index);
+        }
         items.remove(indexOf(id));
     }
 
@@ -70,6 +70,5 @@ public class MemTracker implements Store {
         if (connection != null) {
             connection.close();
         }
-
     }
 }
