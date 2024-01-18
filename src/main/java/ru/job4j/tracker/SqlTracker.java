@@ -19,8 +19,8 @@ public class SqlTracker implements Store {
     }
 
     private void init() {
-        try (InputStream input = SqlTracker.class.getClassLoader()
-                .getResourceAsStream("app.properties")) {
+        try (InputStream input
+                     = SqlTracker.class.getClassLoader().getResourceAsStream("db/liquibase.properties")) {
             Properties config = new Properties();
             config.load(input);
             Class.forName(config.getProperty("driver-class-name"));
@@ -45,7 +45,7 @@ public class SqlTracker implements Store {
     public Item add(Item item) {
         try (PreparedStatement preparedStatement
                      = connection.prepareStatement(
-                "INSERT INTO item (name, created_date) VALUES (?, ?)",
+                "INSERT INTO items (name, created_date) VALUES (?, ?)",
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, item.getName());
             preparedStatement.setTimestamp(2, Timestamp.valueOf(new Timestamp(System.currentTimeMillis()).toLocalDateTime()));
@@ -66,7 +66,7 @@ public class SqlTracker implements Store {
         if (findById(id) != null) {
             try (PreparedStatement preparedStatement
                          = connection.prepareStatement(
-                    "UPDATE item SET name = ? WHERE id = ?")) {
+                    "UPDATE items SET name = ? WHERE id = ?")) {
                 preparedStatement.setString(1, item.getName());
                 preparedStatement.setInt(2, id);
                 preparedStatement.executeUpdate();
@@ -81,7 +81,7 @@ public class SqlTracker implements Store {
     public void delete(int id) {
         try (Statement statement
                      = connection.createStatement()) {
-            String sql = String.format("DELETE FROM item WHERE id = %d", id);
+            String sql = String.format("DELETE FROM items WHERE id = %d", id);
             statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,7 +92,7 @@ public class SqlTracker implements Store {
     public List<Item> findAll() {
         List<Item> allItems = new ArrayList<>();
         try (PreparedStatement preparedStatement
-                     = connection.prepareStatement("SELECT * FROM item")) {
+                     = connection.prepareStatement("SELECT * FROM items")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     allItems.add(new Item(
@@ -111,7 +111,7 @@ public class SqlTracker implements Store {
     public List<Item> findByName(String key) {
         List<Item> itemsByName = new ArrayList<>();
         try (PreparedStatement preparedStatement
-                     = connection.prepareStatement("SELECT * FROM item")) {
+                     = connection.prepareStatement("SELECT * FROM items")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     if (Objects.equals(resultSet.getString("name"), key)) {
@@ -131,7 +131,7 @@ public class SqlTracker implements Store {
     public Item findById(int id) {
         Item itemById = null;
         try (PreparedStatement preparedStatement
-                     = connection.prepareStatement("SELECT * FROM item")) {
+                     = connection.prepareStatement("SELECT * FROM items")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     if (Objects.equals(resultSet.getInt("id"), id)) {
