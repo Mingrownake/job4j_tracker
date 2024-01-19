@@ -45,7 +45,7 @@ public class SqlTracker implements Store {
     public Item add(Item item) {
         try (PreparedStatement preparedStatement
                      = connection.prepareStatement(
-                "INSERT INTO items (name, created_date) VALUES (?, ?)",
+                "INSERT INTO items (name, created) VALUES (?, ?)",
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, item.getName());
             preparedStatement.setTimestamp(2, Timestamp.valueOf(new Timestamp(System.currentTimeMillis()).toLocalDateTime()));
