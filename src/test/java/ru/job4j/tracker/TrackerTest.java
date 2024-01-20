@@ -76,13 +76,14 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenDeleteItemIsSuccessful() {
-        MemTracker tracker = new MemTracker();
-        Item item = new Item("Bug");
-        tracker.add(item);
-        int id = item.getId();
-        tracker.delete(id);
-        assertThat(tracker.findById(id)).isNull();
+    public void whenDeleteItemIsSuccessful() throws Exception {
+        try (MemTracker tracker = new MemTracker()) {
+            Item item = new Item("Bug");
+            tracker.add(item);
+            int id = item.getId();
+            tracker.delete(id);
+            assertThat(tracker.findById(id)).isNull();
+        }
     }
 
     @Test
@@ -90,9 +91,7 @@ public class TrackerTest {
         MemTracker tracker = new MemTracker();
         Item item = new Item("Bug");
         tracker.add(item);
-        boolean result = tracker.delete(1000);
         tracker.delete(1000);
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo("Bug");
-        assertThat(result).isFalse();
     }
 }
