@@ -42,7 +42,8 @@ public class SqlTrackerTest {
 
     @AfterEach
     public void wipeTable() throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement("delete from items")) {
+        try (PreparedStatement statement
+                     = connection.prepareStatement("delete from items")) {
             statement.execute();
         }
     }
@@ -52,7 +53,8 @@ public class SqlTrackerTest {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = new Item("item");
         tracker.add(item);
-        Assertions.assertThat(tracker.findById(item.getId())).isEqualTo(item);
+        Assertions.assertThat(tracker
+                .findById(item.getId())).isEqualTo(item);
     }
 
     @Test
@@ -61,7 +63,8 @@ public class SqlTrackerTest {
         Item item = new Item("test");
         tracker.add(item);
         tracker.delete(item.getId());
-        Assertions.assertThat(tracker.findById(item.getId())).isNull();
+        Assertions.assertThat(tracker
+                .findById(item.getId())).isNull();
     }
 
     @Test
@@ -91,7 +94,8 @@ public class SqlTrackerTest {
         Item item = new Item("item");
         tracker.add(item);
         int id = item.getId();
-        Assertions.assertThat(tracker.findById(id)).isEqualTo(item);
+        Assertions.assertThat(tracker
+                .findById(id)).isEqualTo(item);
     }
 }
 
