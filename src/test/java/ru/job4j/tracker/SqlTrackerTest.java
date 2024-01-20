@@ -1,25 +1,19 @@
 package ru.job4j.tracker;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.job4j.tracker.Item;
-import ru.job4j.tracker.SqlTracker;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
-import static org.assertj.core.api.Assertions.*;
 
 public class SqlTrackerTest {
     private static Connection connection;
@@ -59,6 +53,45 @@ public class SqlTrackerTest {
         Item item = new Item("item");
         tracker.add(item);
         Assertions.assertThat(tracker.findById(item.getId())).isEqualTo(item);
+    }
+
+    @Test
+    public void whenDeleteItemIsSuccessful() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = new Item("test");
+        tracker.add(item);
+        tracker.delete(item.getId());
+        Assertions.assertThat(tracker.findById(item.getId())).isNull();
+    }
+
+    @Test
+    public void whenFindAllItemsIsSuccessful() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = new Item("item1");
+        Item item2 = new Item("item2");
+        tracker.add(item1);
+        tracker.add(item2);
+        Assertions.assertThat(tracker
+                .findAll()).containsAll(List.of(item1, item2));
+    }
+
+    @Test
+    public void whenFindByNameIsSuccessFul() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = new Item("item");
+        tracker.add(item);
+        Assertions.assertThat(tracker
+                .findByName(item.getName())).contains(item);
+
+    }
+
+    @Test
+    public void whenFindByIdIsSuccessful() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = new Item("item");
+        tracker.add(item);
+        int id = item.getId();
+        Assertions.assertThat(tracker.findById(id)).isEqualTo(item);
     }
 }
 
