@@ -57,9 +57,12 @@ public class Item {
                 + ", created=" + created.format(FORMATTER)
                 + '}';
     }
-/** надо использовать три поля - id, name, created
 
- Время создания объектов Item не должно меняться:*/
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -69,13 +72,8 @@ public class Item {
             return false;
         }
         Item item = (Item) o;
-        return getId() == item.getId()
-                && Objects.equals(getName(), item.getName())
+        return id == item.id
+                && Objects.equals(name, item.name)
                 && Objects.equals(created, item.created);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName());
     }
 }

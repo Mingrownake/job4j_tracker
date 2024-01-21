@@ -99,7 +99,8 @@ public class SqlTracker implements Store {
                     allItems.add(new Item(
                             resultSet.getString("name"),
                             resultSet.getInt("id"),
-                            resultSet.getTimestamp("created").toLocalDateTime()
+                            resultSet.getTimestamp("created")
+                                    .toLocalDateTime().withNano(0)
                     ));
                 }
             }
@@ -120,7 +121,8 @@ public class SqlTracker implements Store {
                         itemsByName.add(new Item(
                                 resultSet.getString("name"),
                                 resultSet.getInt("id"),
-                                resultSet.getTimestamp("created").toLocalDateTime()));
+                                resultSet.getTimestamp("created")
+                                        .toLocalDateTime().withNano(0)));
                     }
                 }
             }
@@ -140,7 +142,8 @@ public class SqlTracker implements Store {
                     if (Objects.equals(resultSet.getInt("id"), id)) {
                         itemById = new Item(resultSet.getString("name"),
                                 resultSet.getInt("id"),
-                                resultSet.getTimestamp("created").toLocalDateTime());
+                                resultSet.getTimestamp("created")
+                                        .toLocalDateTime().withNano(0));
                     }
                 }
             }
