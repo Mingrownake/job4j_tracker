@@ -23,6 +23,12 @@ public class Item {
         this.id = id;
     }
 
+    public Item(String name, int id, LocalDateTime created) {
+        this.name = name;
+        this.id = id;
+        this.created = created;
+    }
+
     public int getId() {
         return id;
     }
@@ -51,7 +57,9 @@ public class Item {
                 + ", created=" + created.format(FORMATTER)
                 + '}';
     }
+/** надо использовать три поля - id, name, created
 
+ Время создания объектов Item не должно меняться:*/
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -61,7 +69,9 @@ public class Item {
             return false;
         }
         Item item = (Item) o;
-        return getId() == item.getId() && Objects.equals(getName(), item.getName());
+        return getId() == item.getId()
+                && Objects.equals(getName(), item.getName())
+                && Objects.equals(created, item.created);
     }
 
     @Override

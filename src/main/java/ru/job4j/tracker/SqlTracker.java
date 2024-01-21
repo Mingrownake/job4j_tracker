@@ -48,7 +48,8 @@ public class SqlTracker implements Store {
                 "INSERT INTO items (name, created) VALUES (?, ?)",
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, item.getName());
-            preparedStatement.setTimestamp(2, Timestamp.valueOf(new Timestamp(System.currentTimeMillis()).toLocalDateTime()));
+            preparedStatement.setTimestamp(2, Timestamp
+                    .valueOf(new Timestamp(System.currentTimeMillis()).toLocalDateTime()));
             preparedStatement.execute();
             try (ResultSet generatedKey = preparedStatement.getGeneratedKeys()) {
                 if (generatedKey.next()) {
@@ -97,7 +98,8 @@ public class SqlTracker implements Store {
                 while (resultSet.next()) {
                     allItems.add(new Item(
                             resultSet.getString("name"),
-                            resultSet.getInt("id")
+                            resultSet.getInt("id"),
+                            resultSet.getTimestamp("created").toLocalDateTime()
                     ));
                 }
             }
@@ -117,7 +119,8 @@ public class SqlTracker implements Store {
                     if (Objects.equals(resultSet.getString("name"), key)) {
                         itemsByName.add(new Item(
                                 resultSet.getString("name"),
-                                resultSet.getInt("id")));
+                                resultSet.getInt("id"),
+                                resultSet.getTimestamp("created").toLocalDateTime()));
                     }
                 }
             }
@@ -136,7 +139,8 @@ public class SqlTracker implements Store {
                 while (resultSet.next()) {
                     if (Objects.equals(resultSet.getInt("id"), id)) {
                         itemById = new Item(resultSet.getString("name"),
-                                resultSet.getInt("id"));
+                                resultSet.getInt("id"),
+                                resultSet.getTimestamp("created").toLocalDateTime());
                     }
                 }
             }
