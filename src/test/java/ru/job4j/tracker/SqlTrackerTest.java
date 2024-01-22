@@ -64,6 +64,7 @@ public class SqlTrackerTest {
         tracker.delete(item.getId());
         Assertions.assertThat(tracker
                 .findById(item.getId())).isNull();
+        Assertions.assertThat(tracker.findAll()).isEmpty();
     }
 
     @Test
@@ -95,6 +96,17 @@ public class SqlTrackerTest {
         int id = item.getId();
         Assertions.assertThat(tracker
                 .findById(id)).isEqualTo(item);
+    }
+
+    @Test
+    public void whenDeleteOneItemDoesNotRemoveOtherItems() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = new Item("item1");
+        Item item2 = new Item("item2");
+        tracker.add(item1);
+        tracker.add(item2);
+        tracker.delete(item1.getId());
+        Assertions.assertThat(tracker.findAll()).isNotEmpty();
     }
 }
 
