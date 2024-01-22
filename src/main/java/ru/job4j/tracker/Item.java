@@ -60,7 +60,7 @@ public class Item {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName());
+        return Objects.hash(getId(), getName(), getLocalDateTime());
     }
 
     @Override
