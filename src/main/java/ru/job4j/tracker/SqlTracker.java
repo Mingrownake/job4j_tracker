@@ -34,6 +34,15 @@ public class SqlTracker implements Store {
         }
     }
 
+    private Item createNewItem(ResultSet resultSet) throws SQLException {
+        return new Item(
+                resultSet.getString("name"),
+                resultSet.getInt("id"),
+                resultSet.getTimestamp("created")
+                        .toLocalDateTime().withNano(0)
+        );
+    }
+
     @Override
     public void close() throws SQLException {
         if (connection != null) {
@@ -96,12 +105,7 @@ public class SqlTracker implements Store {
                      = connection.prepareStatement("SELECT * FROM items")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    allItems.add(new Item(
-                            resultSet.getString("name"),
-                            resultSet.getInt("id"),
-                            resultSet.getTimestamp("created")
-                                    .toLocalDateTime().withNano(0)
-                    ));
+                    allItems.add(createNewItem(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -118,11 +122,7 @@ public class SqlTracker implements Store {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     if (Objects.equals(resultSet.getString("name"), key)) {
-                        itemsByName.add(new Item(
-                                resultSet.getString("name"),
-                                resultSet.getInt("id"),
-                                resultSet.getTimestamp("created")
-                                        .toLocalDateTime().withNano(0)));
+                        itemsByName.add(createNewItem(resultSet));
                     }
                 }
             }
@@ -140,10 +140,7 @@ public class SqlTracker implements Store {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     if (Objects.equals(resultSet.getInt("id"), id)) {
-                        itemById = new Item(resultSet.getString("name"),
-                                resultSet.getInt("id"),
-                                resultSet.getTimestamp("created")
-                                        .toLocalDateTime().withNano(0));
+                        itemById = createNewItem(resultSet);
                     }
                 }
             }
