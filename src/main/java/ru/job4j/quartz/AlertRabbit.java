@@ -18,7 +18,7 @@ public class AlertRabbit {
             scheduler.start();
             JobDetail job = newJob(Rabbit.class).build();
             SimpleScheduleBuilder times = simpleSchedule()
-                    .withIntervalInSeconds(readRabbitProperties())
+                    .withIntervalInSeconds(readRabbitInterval())
                     .repeatForever();
             Trigger trigger = newTrigger()
                     .startNow()
@@ -36,10 +36,8 @@ public class AlertRabbit {
             System.out.println("Rabbit runs here ...");
         }
     }
-    /*Важно! Чтение файла с настройками должно быть в отдельном методе, который будет возвращать загруженный Properties.
-*/
 
-    private static int readRabbitProperties() throws IOException {
+    private static int readRabbitInterval() throws IOException {
         int properties;
         try (InputStream input = AlertRabbit.class
                 .getClassLoader().getResourceAsStream("rabbit.properties")) {
