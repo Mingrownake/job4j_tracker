@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class StartUI {
@@ -45,7 +44,9 @@ public class StartUI {
                     new FindByIdAction(output),
                     new FindByNameAction(output),
                     new DeleteAction(output),
-                    new ExitAppAction(output)
+                    new ExitAppAction(output),
+                    new CreateManyItems(output),
+                    new DeleteAllItems(output)
             );
             new StartUI(output).init(input, tracker, actions);
         } catch (Exception e) {
