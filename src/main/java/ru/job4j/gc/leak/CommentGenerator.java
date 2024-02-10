@@ -7,8 +7,7 @@ import java.util.Random;
 
 public class CommentGenerator implements Generate {
 
-    public static final String PATH_PHRASES = "src/main/java/ru/job4j/gc/leak/files/phrases.txt";
-
+    public final String pathPhrases = "src/main/java/ru/job4j/gc/leak/files/phrases.txt";
     public final String separator = System.lineSeparator();
     private final List<Comment> comments = new LinkedList<>();
 
@@ -29,7 +28,7 @@ public class CommentGenerator implements Generate {
 
     private void read() {
         try {
-            phrases = read(PATH_PHRASES);
+            phrases = read(pathPhrases);
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }

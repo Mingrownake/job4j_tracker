@@ -7,10 +7,9 @@ import java.util.Random;
 
 public class UserGenerator implements Generate {
 
-    public static final String PATH_NAMES = "src/main/java/ru/job4j/gc/leak/files/names.txt";
-    public static final String PATH_SURNAMES = "src/main/java/ru/job4j/gc/leak/files/surnames.txt";
-    public static final String PATH_PATRONS = "src/main/java/ru/job4j/gc/leak/files/patr.txt";
-
+    public final String pathNames = "src/main/java/ru/job4j/gc/leak/files/names.txt";
+    public final String pathSurnames = "src/main/java/ru/job4j/gc/leak/files/surnames.txt";
+    public final String pathPatrons = "src/main/java/ru/job4j/gc/leak/files/patr.txt";
     public final String separator = " ";
     public final int newUsers = 1000;
 
@@ -45,9 +44,9 @@ public class UserGenerator implements Generate {
 
     private void readAll() {
         try {
-            names = read(PATH_NAMES);
-            surnames = read(PATH_SURNAMES);
-            patrons = read(PATH_PATRONS);
+            names = read(pathNames);
+            surnames = read(pathSurnames);
+            patrons = read(pathPatrons);
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
