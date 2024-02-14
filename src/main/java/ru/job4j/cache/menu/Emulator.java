@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class Emulator {
     /**
-     * - указать кэшируемую директорию
-     * - загрузить содержимое файла в кэш
-     * - получить содержимое файла из кэша
+     * 1 - указать кэшируемую директорию
+     * 2 - загрузить содержимое файла в кэш
+     * 3 - получить содержимое файла из кэша
      */
     public final int setCacheDir = 1;
     public final int loadFileIntoCache = 2;
@@ -22,7 +22,6 @@ public class Emulator {
                 Введите 3, чтобы получить содержимое файла из кэша.
                 Введите любое другое число для выхода.
             """;
-//C:\projects\job4j_tracker\src\main\java\ru\job4j\cache\files\names.txt
 
     private void start(Scanner scanner) {
         boolean run = true;
@@ -40,7 +39,6 @@ public class Emulator {
 
             } else if (loadFileIntoCache == userChoice) {
                 System.out.println("Загружаем содержимое файла в кэш.");
-
                 dirFileCache.put(fileName, dirFileCache.getFileLines());
 
             } else if (getFileFromCache == userChoice) {

@@ -8,18 +8,18 @@ public abstract class AbstractCache<K, V> {
     /* K =  ключ получения, V - кэш, если нет, то загрузить */
     private final Map<K, SoftReference<V>> cache = new HashMap<>();
 
-    /* пут кладёт в кэш */
+    /* put кладёт в кэш */
     public final void put(K key, V value) {
             SoftReference<V> softReference = new SoftReference<>(value);
             cache.put(key, softReference);
     }
 
-    /* гет достаёт из кеша */
+    /* get достаёт из кеша */
     public final V get(K key) {
         V result = cache.get(key).get();
-
         if (result == null) {
             put(key, load(key));
+            result = cache.get(key).get();
         }
         return result;
     }
