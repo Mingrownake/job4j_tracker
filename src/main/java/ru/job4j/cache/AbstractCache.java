@@ -10,17 +10,17 @@ public abstract class AbstractCache<K, V> {
 
     /* put кладёт в кэш */
     public final void put(K key, V value) {
-            SoftReference<V> softReference = new SoftReference<>(value);
-            cache.put(key, softReference);
+            cache.put(key, new SoftReference<>(value));
     }
 
     /* get достаёт из кеша */
     public final V get(K key) {
-        V result = cache.get(key).get();
-        if (result == null) {
-            put(key, load(key));
+        V res = cache.getOrDefault(key, new SoftReference<>(null)).get();
+        if (res == null) {
+            res = load(key);
+            cache.put(key, new SoftReference<>(res));
         }
-        return result;
+        return res;
     }
 
     /*load()  читает файл и получает его содержимое в виде строки */
