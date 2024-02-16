@@ -1,4 +1,4 @@
-package clone;
+package ru.job4j.clone;
 
 import java.util.Objects;
 

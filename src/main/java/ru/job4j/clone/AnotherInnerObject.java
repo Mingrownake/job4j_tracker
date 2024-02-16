@@ -1,4 +1,4 @@
-package clone;
+package ru.job4j.clone;
 
 public class AnotherInnerObject {
     int num;
