@@ -10,6 +10,7 @@ import java.util.List;
 
 @Disabled("Тесты отключены. Удалить аннотацию после реализации всех методов по заданию.")
 public class Cinema3DTest {
+
     @Test
     public void whenBuyThenGetTicket() {
         Account account = new AccountCinema();
@@ -34,6 +35,33 @@ public class Cinema3DTest {
         Cinema cinema = new Cinema3D();
         Calendar date = Calendar.getInstance();
         assertThatThrownBy(() -> cinema.buy(account, -1, 1, date))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void whenBuyOnInvalidColumnThenGetException() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        assertThatThrownBy(() -> cinema.buy(account, 1, 0, date))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void whenBuyOnPassedDateThenGetException() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(2024, Calendar.JANUARY, 30);
+        assertThatThrownBy(() -> cinema.buy(account, 1, 2, date))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void whenBuyWithNoAccountThenGetException() {
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        assertThatThrownBy(() -> cinema.buy(null, 1, 1, date))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
