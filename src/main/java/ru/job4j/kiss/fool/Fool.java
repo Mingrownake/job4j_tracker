@@ -14,14 +14,14 @@ public class Fool {
         System.out.println("Игра FizzBuzz.");
         int startAt = 1;
         Scanner scanner = new Scanner(System.in);
-
+        Fool fool = new Fool();
         while (startAt < 100) {
-            System.out.println(getAnswer(startAt));
+            System.out.println(fool.getAnswer(startAt));
 
             startAt++;
             String answer = scanner.nextLine();
 
-            if (!answer.equals(getAnswer(startAt))) {
+            if (!answer.equals(fool.getAnswer(startAt))) {
                 System.out.println("Ошибка. Начинай снова.");
                 startAt = 0;
             }
@@ -29,7 +29,7 @@ public class Fool {
         }
     }
 
-    public static String getAnswer(int number) {
+    public String getAnswer(int number) {
         String result;
         if (number % THREE == 0 && number % FIVE == 0) {
             result = FIZZ_BUZZ;
