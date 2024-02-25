@@ -19,8 +19,16 @@ class ReportForHRDeptTest {
 
         ReportForHRDept report = new ReportForHRDept(store);
 
-        Employee employee1 = new Employee("HR1", new GregorianCalendar(2017, Calendar.JANUARY, 1), null, 100.01);
-        Employee employee2 = new Employee("HR2", new GregorianCalendar(2017, Calendar.JANUARY, 1), null, 100);
+        Employee employee1 = new Employee(
+                "HR1",
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                null,
+                100.01);
+        Employee employee2 = new Employee(
+                "HR2",
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                null,
+                100);
         store.add(employee1);
         store.add(employee2);
         Predicate<Employee> findByE = e -> e.equals(e);

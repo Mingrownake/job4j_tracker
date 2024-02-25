@@ -30,12 +30,13 @@ class ReportForDevDeptTest {
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 100);
         store.add(employee1);
-        //store.add(employee2);
+
         Predicate<Employee> findByE = e -> e.equals(e);
+
         assertThat(report.generate(findByE))
                 .isEqualTo("Name; Hired; Fired; Salary;"
                             + System.lineSeparator()
-                            + "Dev1 01:01:2017 00:00 01:01:2017 00:00 100.0"
+                            + "Dev1;01:01:2017 00:00;01:01:2017 00:00;100.0"
                             + System.lineSeparator());
     }
 

@@ -22,13 +22,14 @@ public class ReportForDevDept implements Report {
 
     @Override
     public String generate(Predicate<Employee> filter) {
+        String delimiter = ";";
         StringBuilder text = new StringBuilder();
         text.append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator());
         for (Employee employee : store.findBy(filter)) {
-            text.append(employee.getName()).append(" ")
-                    .append(dateTimeParser.parse(employee.getHired())).append(" ")
-                    .append(dateTimeParser.parse(employee.getFired())).append(" ")
+            text.append(employee.getName()).append(delimiter)
+                    .append(dateTimeParser.parse(employee.getHired())).append(delimiter)
+                    .append(dateTimeParser.parse(employee.getFired())).append(delimiter)
                     .append(employee.getSalary())
                     .append(System.lineSeparator());
         }
