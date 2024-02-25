@@ -21,7 +21,7 @@ class ReportForDevDeptTest {
 
         DateTimeParser<Calendar> dateTimeParser = new ReportDateTimeParser();
 
-        ReportForDevDept report =
+        Report report =
                 new ReportForDevDept(store, dateTimeParser);
 
         Employee employee1
@@ -31,9 +31,9 @@ class ReportForDevDeptTest {
                 100);
         store.add(employee1);
 
-        Predicate<Employee> findByE = e -> e.equals(e);
+        Predicate<Employee> findEmployee = e -> true;
 
-        assertThat(report.generate(findByE))
+        assertThat(report.generate(findEmployee))
                 .isEqualTo("Name; Hired; Fired; Salary;"
                             + System.lineSeparator()
                             + "Dev1;01:01:2017 00:00;01:01:2017 00:00;100.0"

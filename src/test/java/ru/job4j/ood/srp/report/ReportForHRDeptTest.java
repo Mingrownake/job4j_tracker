@@ -17,7 +17,7 @@ class ReportForHRDeptTest {
     void whenReportIsGeneratedForHRsWithDiffNames() {
         Store store = new MemoryStore();
 
-        ReportForHRDept report = new ReportForHRDept(store);
+        Report report = new ReportForHRDept(store);
 
         Employee employee1 = new Employee(
                 "HR1",
@@ -31,7 +31,8 @@ class ReportForHRDeptTest {
                 100);
         store.add(employee1);
         store.add(employee2);
-        Predicate<Employee> findByE = e -> e.equals(e);
+
+        Predicate<Employee> findByE = e -> true;
 
         assertThat(report.generate(findByE))
                 .isEqualTo("Name; Salary;"
@@ -50,9 +51,9 @@ class ReportForHRDeptTest {
         Employee employee2 = new Employee("HR", new GregorianCalendar(2017, Calendar.JANUARY, 1), new GregorianCalendar(2017, Calendar.JANUARY, 1), 100);
         store.add(employee1);
         store.add(employee2);
-        Predicate<Employee> findByName = e -> e.equals(e);
-        store.findBy(findByName);
-        assertThat(report.generate(findByName))
+        Predicate<Employee> findEmployee = e -> true;
+        store.findBy(findEmployee);
+        assertThat(report.generate(findEmployee))
                 .isEqualTo("Name; Salary;"
                         + System.lineSeparator()
                         + "HR 100.01"

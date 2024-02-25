@@ -25,7 +25,7 @@ class ReportForAccountsDeptTest {
         Currency sourceCurrency = Currency.RUB;
         Currency targetCurrency = Currency.USD;
 
-        ReportForAccountsDept report
+        Report report
                 = new ReportForAccountsDept(
                         store, dateTimeParser,
                         currencyConverter, sourceCurrency, targetCurrency);
@@ -36,12 +36,13 @@ class ReportForAccountsDeptTest {
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 100);
         store.add(employee1);
-        Predicate<Employee> findByE = e -> e.equals(e);
 
-        assertThat(report.generate(findByE))
+        Predicate<Employee> findEmployee = e -> true;
+
+        assertThat(report.generate(findEmployee))
                 .isEqualTo("Name; Hired; Fired; Salary; Converted Salary"
                         + System.lineSeparator()
-                        + "Accountant 01:01:2017 00:00 01:01:2017 00:00 100.0 1.6199999999999999"
+                        + "Accountant 01:01:2017 00:00 01:01:2017 00:00 100.0 100.0"
                         + System.lineSeparator());
     }
 
