@@ -37,7 +37,7 @@ class ReportForAccountsDeptTest {
                 100);
         store.add(employee1);
         Predicate<Employee> findByE = e -> e.equals(e);
-        //store.findBy(findByE);
+
         assertThat(report.generate(findByE))
                 .isEqualTo("Name; Hired; Fired; Salary; Converted Salary"
                         + System.lineSeparator()
