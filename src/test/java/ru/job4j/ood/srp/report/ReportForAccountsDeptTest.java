@@ -21,10 +21,15 @@ import static org.assertj.core.api.Assertions.*;
 class ReportForAccountsDeptTest {
     @Test
     void whenReportIsGeneratedForAccountants() {
+
         Store store = new MemoryStore();
+
         DateTimeParser<Calendar> dateTimeParser = new ReportDateTimeParser();
+
         CurrencyConverter currencyConverter = new InMemoryCurrencyConverter();
+
         Currency sourceCurrency = Currency.RUB;
+
         Currency targetCurrency = Currency.USD;
 
         Report report
@@ -37,6 +42,7 @@ class ReportForAccountsDeptTest {
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 100);
+
         store.add(employee1);
 
         Predicate<Employee> findEmployee = e -> true;
@@ -50,11 +56,17 @@ class ReportForAccountsDeptTest {
 
     @Test
     void whenReportIsGeneratedForAccountantsJSON() {
+
         Store store = new MemoryStore();
+
         DateTimeParser<Calendar> dateTimeParser = new ReportDateTimeParser();
+
         CurrencyConverter currencyConverter = new InMemoryCurrencyConverter();
+
         Currency sourceCurrency = Currency.RUB;
+
         Currency targetCurrency = Currency.USD;
+
         Gson gson = new GsonBuilder().create();
 
         Report report
@@ -67,6 +79,7 @@ class ReportForAccountsDeptTest {
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 100);
+
         store.add(employee1);
 
         Predicate<Employee> findEmployee = e -> true;

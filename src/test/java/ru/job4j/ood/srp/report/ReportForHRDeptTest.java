@@ -17,6 +17,7 @@ class ReportForHRDeptTest {
 
     @Test
     void whenReportIsGeneratedForHRsWithDiffNames() {
+
         Store store = new MemoryStore();
 
         Report report = new ReportForHRDept(store);
@@ -26,12 +27,15 @@ class ReportForHRDeptTest {
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 null,
                 100.01);
+
         Employee employee2 = new Employee(
                 "HR2",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 null,
                 100);
+
         store.add(employee1);
+
         store.add(employee2);
 
         Predicate<Employee> findByE = e -> true;
@@ -47,11 +51,22 @@ class ReportForHRDeptTest {
 
     @Test
     void whenReportIsGeneratedForHRsWithSameNameThenOrderedBySalary() {
+
         Store store = new MemoryStore();
+
         Report report = new ReportForHRDept(store);
-        Employee employee1 = new Employee("HR", new GregorianCalendar(2017, Calendar.JANUARY, 1), new GregorianCalendar(2017, Calendar.JANUARY, 1), 100.01);
-        Employee employee2 = new Employee("HR", new GregorianCalendar(2017, Calendar.JANUARY, 1), new GregorianCalendar(2017, Calendar.JANUARY, 1), 100);
+
+        Employee employee1 = new Employee("HR",
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                100.01);
+        Employee employee2 = new Employee("HR",
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                100);
+
         store.add(employee1);
+
         store.add(employee2);
 
         Predicate<Employee> findEmployee = e -> true;
@@ -67,12 +82,25 @@ class ReportForHRDeptTest {
 
     @Test
     void whenReportIsGeneratedForHRsWithSameNameThenOrderedBySalaryJSON() {
+
         Store store = new MemoryStore();
+
         Gson gson = new GsonBuilder().create();
+
         Report report = new ReportForHRDept(store, gson);
-        Employee employee1 = new Employee("HR", new GregorianCalendar(2017, Calendar.JANUARY, 1), new GregorianCalendar(2017, Calendar.JANUARY, 1), 100.01);
-        Employee employee2 = new Employee("HR", new GregorianCalendar(2017, Calendar.JANUARY, 1), new GregorianCalendar(2017, Calendar.JANUARY, 1), 100);
+
+        Employee employee1 = new Employee("HR",
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                100.01);
+
+        Employee employee2 = new Employee("HR",
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                100);
+
         store.add(employee1);
+
         store.add(employee2);
 
         Predicate<Employee> findEmployee = e -> true;

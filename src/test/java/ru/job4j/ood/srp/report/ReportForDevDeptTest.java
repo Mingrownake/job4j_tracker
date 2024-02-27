@@ -1,5 +1,7 @@
 package ru.job4j.ood.srp.report;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.srp.formatter.DateTimeParser;
 import ru.job4j.ood.srp.formatter.ReportDateTimeParser;
@@ -17,18 +19,19 @@ class ReportForDevDeptTest {
 
     @Test
     void whenGenerateReportForDevs() {
+
         Store store = new MemoryStore();
 
         DateTimeParser<Calendar> dateTimeParser = new ReportDateTimeParser();
 
-        Report report =
-                new ReportForDevDept(store, dateTimeParser);
+        Report report = new ReportForDevDept(store, dateTimeParser);
 
         Employee employee1
                 = new Employee("Dev1",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 100);
+
         store.add(employee1);
 
         Predicate<Employee> findEmployee = e -> true;
@@ -40,4 +43,30 @@ class ReportForDevDeptTest {
                             + System.lineSeparator());
     }
 
+    @Test
+    void whenGenerateReportForDevsJSON() {
+
+        Store store = new MemoryStore();
+
+        DateTimeParser<Calendar> dateTimeParser = new ReportDateTimeParser();
+
+        Gson gson = new GsonBuilder().create();
+
+        Report report = new ReportForDevDept(store, dateTimeParser, gson);
+
+        Employee employee1 = new Employee("Dev1",
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                100);
+
+        store.add(employee1);
+
+        Predicate<Employee> findEmployee = e -> true;
+
+        assertThat(report.generateJsonRep(findEmployee))
+                .isEqualTo("[{\"name\":\"Dev1\","
+                        + "\"hired\":{\"year\":2017,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
+                        + "\"fired\":{\"year\":2017,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
+                        + "\"salary\":100.0}]");
+    }
 }
