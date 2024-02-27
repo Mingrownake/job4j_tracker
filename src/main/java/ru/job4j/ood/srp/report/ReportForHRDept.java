@@ -52,9 +52,8 @@ public class ReportForHRDept implements Report {
         List<Employee> sortedList = employeeList.stream()
                 .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
                 .toList();
-        String res = gson.toJson(sortedList);
 
-        return res;
+        return gson.toJson(sortedList);
     }
 }
 

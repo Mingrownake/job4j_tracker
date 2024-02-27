@@ -53,8 +53,9 @@ class ReportForHRDeptTest {
         Employee employee2 = new Employee("HR", new GregorianCalendar(2017, Calendar.JANUARY, 1), new GregorianCalendar(2017, Calendar.JANUARY, 1), 100);
         store.add(employee1);
         store.add(employee2);
+
         Predicate<Employee> findEmployee = e -> true;
-        store.findBy(findEmployee);
+
         assertThat(report.generate(findEmployee))
                 .isEqualTo("Name; Salary;"
                         + System.lineSeparator()
@@ -73,8 +74,9 @@ class ReportForHRDeptTest {
         Employee employee2 = new Employee("HR", new GregorianCalendar(2017, Calendar.JANUARY, 1), new GregorianCalendar(2017, Calendar.JANUARY, 1), 100);
         store.add(employee1);
         store.add(employee2);
+
         Predicate<Employee> findEmployee = e -> true;
-        store.findBy(findEmployee);
+
         assertThat(report.generateJsonRep(findEmployee))
                 .isEqualTo("[{\"name\":\"HR\","
                         + "\"hired\":{\"year\":2017,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
