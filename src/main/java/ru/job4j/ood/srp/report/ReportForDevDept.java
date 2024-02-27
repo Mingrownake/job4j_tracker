@@ -35,4 +35,9 @@ public class ReportForDevDept implements Report {
         }
         return text.toString();
     }
+
+    @Override
+    public String generateJsonRep(Predicate<Employee> filter) {
+        return null;
+    }
 }
