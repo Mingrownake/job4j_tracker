@@ -59,4 +59,9 @@ public class ReportForDevDept implements Report {
 
         return gson.toJson(employeeList);
     }
+
+    @Override
+    public String generateXMLRep(Predicate<Employee> filter) {
+        return null;
+    }
 }

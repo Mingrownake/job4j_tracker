@@ -7,6 +7,9 @@ import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.store.MemoryStore;
 import ru.job4j.ood.srp.store.Store;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.function.Predicate;
@@ -16,7 +19,7 @@ import static org.assertj.core.api.Assertions.*;
 class ReportForHRDeptTest {
 
     @Test
-    void whenReportIsGeneratedForHRsWithDiffNames() {
+    void whenReportIsGeneratedForHRsWithDiffNames() throws JAXBException {
 
         Store store = new MemoryStore();
 
@@ -50,7 +53,7 @@ class ReportForHRDeptTest {
      }
 
     @Test
-    void whenReportIsGeneratedForHRsWithSameNameThenOrderedBySalary() {
+    void whenReportIsGeneratedForHRsWithSameNameThenOrderedBySalary() throws JAXBException {
 
         Store store = new MemoryStore();
 
@@ -81,7 +84,7 @@ class ReportForHRDeptTest {
     }
 
     @Test
-    void whenReportIsGeneratedForHRsWithSameNameThenOrderedBySalaryJSON() {
+    void whenReportIsGeneratedForHRsWithSameNameThenOrderedBySalaryJSON() throws JAXBException {
 
         Store store = new MemoryStore();
 
@@ -114,5 +117,43 @@ class ReportForHRDeptTest {
                         + "\"hired\":{\"year\":2017,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
                         + "\"fired\":{\"year\":2017,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
                         + "\"salary\":100.0}]");
+    }
+
+    @Test
+    void whenReportIsGeneratedForHRsWithSameNameThenOrderedBySalaryXML() throws JAXBException {
+
+        Store store = new MemoryStore();
+
+        JAXBContext context = JAXBContext.newInstance(Employee.class);
+
+        Marshaller marshaller = context.createMarshaller();
+
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+        Report report = new ReportForHRDept(store, context);
+
+        Employee employee1 = new Employee("HR",
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                100.01);
+
+        Employee employee2 = new Employee("HR",
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                100);
+
+        store.add(employee1);
+
+        store.add(employee2);
+
+        Predicate<Employee> findEmployee = e -> true;
+
+        assertThat(report.generateXMLRep(findEmployee))
+                .isEqualTo("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+                        + "<employee name=\"HR\" salary=\"100.0\">\n"
+                        + "    <hired>2017-01-01T00:00:00+07:00</hired>\n"
+                        + "    <fired>2017-01-01T00:00:00+07:00</fired>\n"
+                        + "</employee>\n"
+                        );
     }
 }
