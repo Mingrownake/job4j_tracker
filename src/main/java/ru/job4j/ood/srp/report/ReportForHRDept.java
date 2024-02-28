@@ -77,9 +77,7 @@ public class ReportForHRDept implements Report {
                 .toList();
 
         JAXBContext context = JAXBContext.newInstance(Employee.Employees.class);
-
         Marshaller marshaller = context.createMarshaller();
-
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
         String xml = "";

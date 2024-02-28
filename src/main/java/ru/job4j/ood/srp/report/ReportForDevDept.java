@@ -6,6 +6,11 @@ import ru.job4j.ood.srp.formatter.DateTimeParser;
 import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.store.Store;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -17,22 +22,32 @@ public class ReportForDevDept implements Report {
 
     private final Store store;
 
+    private JAXBContext context = JAXBContext.newInstance(Employee.class);
+
     private final DateTimeParser<Calendar> dateTimeParser;
 
     private Gson gson = new GsonBuilder().create();
 
     public ReportForDevDept(Store store,
-                            DateTimeParser<Calendar> dateTimeParser) {
+                            DateTimeParser<Calendar> dateTimeParser) throws JAXBException {
         this.store = store;
         this.dateTimeParser = dateTimeParser;
     }
 
     public ReportForDevDept(Store store,
                             DateTimeParser<Calendar> dateTimeParser,
-                            Gson gson) {
+                            Gson gson) throws JAXBException {
         this.store = store;
         this.dateTimeParser = dateTimeParser;
         this.gson = gson;
+    }
+
+    public ReportForDevDept(Store store,
+                            DateTimeParser<Calendar> dateTimeParser,
+                            JAXBContext context) throws JAXBException {
+        this.store = store;
+        this.dateTimeParser = dateTimeParser;
+        this.context = context;
     }
 
     @Override
@@ -61,7 +76,21 @@ public class ReportForDevDept implements Report {
     }
 
     @Override
-    public String generateXMLRep(Predicate<Employee> filter) {
-        return null;
+    public String generateXMLRep(Predicate<Employee> filter) throws JAXBException {
+
+        List<Employee> employeeList = new ArrayList<>(store.findBy(filter));
+        JAXBContext context = JAXBContext.newInstance(Employee.Employees.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+        String xml = "";
+        try (StringWriter writer = new StringWriter()) {
+            marshaller.marshal(new Employee.Employees(employeeList), writer);
+            xml = writer.getBuffer().toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return xml;
     }
 }
+
