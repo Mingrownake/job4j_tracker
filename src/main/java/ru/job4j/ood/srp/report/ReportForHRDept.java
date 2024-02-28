@@ -72,26 +72,25 @@ public class ReportForHRDept implements Report {
 
         List<Employee> employeeList = new ArrayList<>(store.findBy(filter));
 
-        List<Employee> sortedList = employeeList.stream()
+        List<Employee> employees = employeeList.stream()
                 .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
                 .toList();
 
-        JAXBContext context = JAXBContext.newInstance(Employee.class);
+        JAXBContext context = JAXBContext.newInstance(Employee.Employees.class);
 
         Marshaller marshaller = context.createMarshaller();
 
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
         String xml = "";
-        for (Employee employee : sortedList) {
-            try (StringWriter writer = new StringWriter()) {
-                marshaller.marshal(employee, writer);
-                xml = writer.getBuffer().toString();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try (StringWriter writer = new StringWriter()) {
+            marshaller.marshal(new Employee.Employees(employees), writer);
+            xml = writer.getBuffer().toString();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return xml;
     }
 }
+
 

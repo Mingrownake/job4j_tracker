@@ -150,10 +150,22 @@ class ReportForHRDeptTest {
 
         assertThat(report.generateXMLRep(findEmployee))
                 .isEqualTo("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
-                        + "<employee name=\"HR\" salary=\"100.0\">\n"
-                        + "    <hired>2017-01-01T00:00:00+07:00</hired>\n"
-                        + "    <fired>2017-01-01T00:00:00+07:00</fired>\n"
-                        + "</employee>\n"
+                                + "<employees>\n"
+                                + "    <employee>\n"
+                                + "        <fired>2017-01-01T00:00:00+07:00</fired>\n"
+                                + "        <hired>2017-01-01T00:00:00+07:00</hired>\n"
+                                + "        <name>HR</name>\n"
+                                + "        <salary>100.01</salary>\n"
+                                + "    </employee>\n"
+                                + "    <employee>\n"
+                                + "        <fired>2017-01-01T00:00:00+07:00</fired>\n"
+                                + "        <hired>2017-01-01T00:00:00+07:00</hired>\n"
+                                + "        <name>HR</name>\n"
+                                + "        <salary>100.0</salary>\n"
+                                + "    </employee>\n"
+                                + "</employees>\n"
+                                + ""
+
                         );
     }
 }
