@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Employee {
-
     private String name;
 
     private Calendar hired;
@@ -18,11 +17,21 @@ public class Employee {
 
     private double salary;
 
+    private double convert;
+
     public Employee(String name, Calendar hired, Calendar fired, double salary) {
         this.name = name;
         this.hired = hired;
         this.fired = fired;
         this.salary = salary;
+    }
+
+    public Employee(String name, Calendar hired, Calendar fired, double salary, double convert) {
+        this.name = name;
+        this.hired = hired;
+        this.fired = fired;
+        this.salary = salary;
+        this.convert = convert;
     }
 
     public String getName() {
@@ -55,6 +64,14 @@ public class Employee {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    public double getConvert() {
+        return convert;
+    }
+
+    public void setConvert(double convert) {
+        this.convert = convert;
     }
 
     @Override

@@ -3,6 +3,8 @@ package ru.job4j.ood.srp.report;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.Test;
+import ru.job4j.ood.srp.currency.CurrencyConverter;
+import ru.job4j.ood.srp.currency.InMemoryCurrencyConverter;
 import ru.job4j.ood.srp.formatter.DateTimeParser;
 import ru.job4j.ood.srp.formatter.ReportDateTimeParser;
 import ru.job4j.ood.srp.model.Employee;
@@ -21,10 +23,9 @@ import static org.assertj.core.api.Assertions.*;
 class ReportForDevDeptTest {
 
     @Test
-    void whenGenerateReportForDevs() throws JAXBException {
+    void whenGenerateReportForDevs() {
 
         Store store = new MemoryStore();
-
         DateTimeParser<Calendar> dateTimeParser = new ReportDateTimeParser();
 
         Report report = new ReportForDevDept(store, dateTimeParser);
@@ -47,14 +48,10 @@ class ReportForDevDeptTest {
     }
 
     @Test
-    void whenGenerateReportForDevsJSON() throws JAXBException {
-
+    void whenGenerateReportForDevsJSON() {
         Store store = new MemoryStore();
-
         DateTimeParser<Calendar> dateTimeParser = new ReportDateTimeParser();
-
         Gson gson = new GsonBuilder().create();
-
         Report report = new ReportForDevDept(store, dateTimeParser, gson);
 
         Employee employee1 = new Employee("Dev1",
@@ -78,22 +75,16 @@ class ReportForDevDeptTest {
 
         Store store = new MemoryStore();
         DateTimeParser<Calendar> dateTimeParser = new ReportDateTimeParser();
-
         JAXBContext context = JAXBContext.newInstance(Employee.class);
-
         Marshaller marshaller = context.createMarshaller();
-
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
         Report report = new ReportForDevDept(store, dateTimeParser, context);
 
         Employee employee1 = new Employee("Dev1",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 100);
-
         store.add(employee1);
-
         Predicate<Employee> findEmployee = e -> true;
 
         assertThat(report.generateXMLRep(findEmployee))

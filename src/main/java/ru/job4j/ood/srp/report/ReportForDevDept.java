@@ -24,18 +24,18 @@ public class ReportForDevDept implements Report {
 
     private final DateTimeParser<Calendar> dateTimeParser;
 
-    private Gson gson = new GsonBuilder().create();
-    private JAXBContext context = JAXBContext.newInstance(Employee.class);
+    private Gson gson;
+    private JAXBContext context;
 
     public ReportForDevDept(Store store,
-                            DateTimeParser<Calendar> dateTimeParser) throws JAXBException {
+                            DateTimeParser<Calendar> dateTimeParser) {
         this.store = store;
         this.dateTimeParser = dateTimeParser;
     }
 
     public ReportForDevDept(Store store,
                             DateTimeParser<Calendar> dateTimeParser,
-                            Gson gson) throws JAXBException {
+                            Gson gson) {
         this.store = store;
         this.dateTimeParser = dateTimeParser;
         this.gson = gson;
@@ -43,7 +43,7 @@ public class ReportForDevDept implements Report {
 
     public ReportForDevDept(Store store,
                             DateTimeParser<Calendar> dateTimeParser,
-                            JAXBContext context) throws JAXBException {
+                            JAXBContext context) {
         this.store = store;
         this.dateTimeParser = dateTimeParser;
         this.context = context;

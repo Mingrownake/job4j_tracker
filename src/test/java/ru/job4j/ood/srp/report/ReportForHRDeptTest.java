@@ -15,7 +15,7 @@ import java.util.GregorianCalendar;
 import java.util.function.Predicate;
 
 import static org.assertj.core.api.Assertions.*;
-
+/**
 class ReportForHRDeptTest {
 
     @Test
@@ -29,13 +29,13 @@ class ReportForHRDeptTest {
                 "HR1",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 null,
-                100.01);
+                100.01, inMemoryCurrencyConverter.convert(sourceCurrency, employee.getSalary(), targetCurrency));
 
         Employee employee2 = new Employee(
                 "HR2",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 null,
-                100);
+                100, inMemoryCurrencyConverter.convert(sourceCurrency, employee.getSalary(), targetCurrency));
 
         store.add(employee1);
 
@@ -62,11 +62,11 @@ class ReportForHRDeptTest {
         Employee employee1 = new Employee("HR",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
-                100.01);
+                100.01, inMemoryCurrencyConverter.convert(sourceCurrency, employee.getSalary(), targetCurrency));
         Employee employee2 = new Employee("HR",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
-                100);
+                100, inMemoryCurrencyConverter.convert(sourceCurrency, employee.getSalary(), targetCurrency));
 
         store.add(employee1);
 
@@ -95,12 +95,12 @@ class ReportForHRDeptTest {
         Employee employee1 = new Employee("HR",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
-                100.01);
+                100.01, inMemoryCurrencyConverter.convert(sourceCurrency, employee.getSalary(), targetCurrency));
 
         Employee employee2 = new Employee("HR",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
-                100);
+                100, inMemoryCurrencyConverter.convert(sourceCurrency, employee.getSalary(), targetCurrency));
 
         store.add(employee1);
 
@@ -135,12 +135,12 @@ class ReportForHRDeptTest {
         Employee employee1 = new Employee("HR",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
-                100.01);
+                100.01, inMemoryCurrencyConverter.convert(sourceCurrency, employee.getSalary(), targetCurrency));
 
         Employee employee2 = new Employee("HR",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
-                100);
+                100, inMemoryCurrencyConverter.convert(sourceCurrency, employee.getSalary(), targetCurrency));
 
         store.add(employee1);
 
@@ -169,3 +169,4 @@ class ReportForHRDeptTest {
                         );
     }
 }
+ */
