@@ -22,11 +22,10 @@ public class ReportForDevDept implements Report {
 
     private final Store store;
 
-    private JAXBContext context = JAXBContext.newInstance(Employee.class);
-
     private final DateTimeParser<Calendar> dateTimeParser;
 
     private Gson gson = new GsonBuilder().create();
+    private JAXBContext context = JAXBContext.newInstance(Employee.class);
 
     public ReportForDevDept(Store store,
                             DateTimeParser<Calendar> dateTimeParser) throws JAXBException {

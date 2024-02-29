@@ -16,9 +16,9 @@ import java.util.function.Predicate;
 
 public class ReportForHRDept implements Report {
     private final Store store;
-    private JAXBContext context = JAXBContext.newInstance(Employee.class);
-
     private Gson gson = new GsonBuilder().create();
+
+    private JAXBContext context = JAXBContext.newInstance(Employee.class);
 
     public ReportForHRDept(Store store) throws JAXBException {
         this.store = store;

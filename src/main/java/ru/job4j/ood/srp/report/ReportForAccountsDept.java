@@ -8,6 +8,8 @@ import ru.job4j.ood.srp.formatter.DateTimeParser;
 import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.store.Store;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -27,12 +29,14 @@ public class ReportForAccountsDept implements Report {
 
     private Gson gson = new GsonBuilder().create();
 
+    private JAXBContext context = JAXBContext.newInstance(Employee.class);
+
     public ReportForAccountsDept(Store store,
                                  DateTimeParser<Calendar> dateTimeParser,
                                  CurrencyConverter inMemoryCurrencyConverter,
                                  Currency sourceCurrency,
                                  Currency targetCurrency,
-                                 Gson gson) {
+                                 Gson gson) throws JAXBException {
         this.store = store;
         this.dateTimeParser = dateTimeParser;
         this.inMemoryCurrencyConverter = inMemoryCurrencyConverter;
@@ -45,7 +49,21 @@ public class ReportForAccountsDept implements Report {
                                  DateTimeParser<Calendar> dateTimeParser,
                                  CurrencyConverter inMemoryCurrencyConverter,
                                  Currency sourceCurrency,
-                                 Currency targetCurrency) {
+                                 Currency targetCurrency,
+                                 JAXBContext context) throws JAXBException {
+        this.store = store;
+        this.dateTimeParser = dateTimeParser;
+        this.inMemoryCurrencyConverter = inMemoryCurrencyConverter;
+        this.sourceCurrency = sourceCurrency;
+        this.targetCurrency = targetCurrency;
+        this.context = context;
+    }
+
+    public ReportForAccountsDept(Store store,
+                                 DateTimeParser<Calendar> dateTimeParser,
+                                 CurrencyConverter inMemoryCurrencyConverter,
+                                 Currency sourceCurrency,
+                                 Currency targetCurrency) throws JAXBException {
         this.store = store;
         this.dateTimeParser = dateTimeParser;
         this.inMemoryCurrencyConverter = inMemoryCurrencyConverter;
