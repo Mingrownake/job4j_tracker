@@ -4,7 +4,6 @@ import ru.job4j.ood.srp.formatter.DateTimeParser;
 import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.store.Store;
 
-import javax.xml.bind.JAXBException;
 import java.util.Calendar;
 import java.util.function.Predicate;
 
@@ -31,15 +30,5 @@ public class ReportEngine implements Report {
                     .append(System.lineSeparator());
         }
         return text.toString();
-    }
-
-    @Override
-    public String generateJsonRep(Predicate<Employee> filter) {
-        return null;
-    }
-
-    @Override
-    public String generateXMLRep(Predicate<Employee> filter) throws JAXBException {
-        return null;
     }
 }

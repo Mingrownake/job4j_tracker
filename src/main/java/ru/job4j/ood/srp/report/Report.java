@@ -7,9 +7,6 @@ import java.util.function.Predicate;
 
 public interface Report {
 
-    String generate(Predicate<Employee> filter);
+    String generate(Predicate<Employee> filter) throws JAXBException;
 
-    String generateJsonRep(Predicate<Employee> filter);
-
-    String generateXMLRep(Predicate<Employee> filter) throws JAXBException;
 }

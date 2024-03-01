@@ -1,21 +1,12 @@
 package ru.job4j.ood.srp.report;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import ru.job4j.ood.srp.currency.Currency;
 import ru.job4j.ood.srp.currency.CurrencyConverter;
 import ru.job4j.ood.srp.formatter.DateTimeParser;
 import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.store.Store;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.function.Predicate;
 
 public class ReportForAccountsDept implements Report {
@@ -29,38 +20,6 @@ public class ReportForAccountsDept implements Report {
     private final Currency sourceCurrency; /* Initial curr */
 
     private final Currency targetCurrency; /* Curr to convert into */
-
-    private Gson gson;
-
-    private JAXBContext context;
-
-    public ReportForAccountsDept(Store store,
-                                 DateTimeParser<Calendar> dateTimeParser,
-                                 CurrencyConverter inMemoryCurrencyConverter,
-                                 Currency sourceCurrency,
-                                 Currency targetCurrency,
-                                 Gson gson) {
-        this.store = store;
-        this.dateTimeParser = dateTimeParser;
-        this.inMemoryCurrencyConverter = inMemoryCurrencyConverter;
-        this.sourceCurrency = sourceCurrency;
-        this.targetCurrency = targetCurrency;
-        this.gson = gson;
-    }
-
-    public ReportForAccountsDept(Store store,
-                                 DateTimeParser<Calendar> dateTimeParser,
-                                 CurrencyConverter inMemoryCurrencyConverter,
-                                 Currency sourceCurrency,
-                                 Currency targetCurrency,
-                                 JAXBContext context) {
-        this.store = store;
-        this.dateTimeParser = dateTimeParser;
-        this.inMemoryCurrencyConverter = inMemoryCurrencyConverter;
-        this.sourceCurrency = sourceCurrency;
-        this.targetCurrency = targetCurrency;
-        this.context = context;
-    }
 
     public ReportForAccountsDept(Store store,
                                  DateTimeParser<Calendar> dateTimeParser,
@@ -89,50 +48,6 @@ public class ReportForAccountsDept implements Report {
                     .append(System.lineSeparator());
         }
         return text.toString();
-    }
-
-    @Override
-    public String generateJsonRep(Predicate<Employee> filter) {
-
-        List<Employee> employeeList = new ArrayList<>(store.findBy(filter));
-        List<Employee> employeesToJson = new ArrayList<>();
-        for (Employee employee : employeeList) {
-            employeesToJson.add(new Employee(employee.getName(),
-                    employee.getHired(),
-                    employee.getFired(),
-                    employee.getSalary(),
-                    inMemoryCurrencyConverter.convert(sourceCurrency, employee.getSalary(), targetCurrency)));
-        }
-        return gson.toJson(employeesToJson);
-    }
-
-    @Override
-    public String generateXMLRep(Predicate<Employee> filter) throws JAXBException {
-
-        List<Employee> employeeList = new ArrayList<>(store.findBy(filter));
-
-        List<Employee> employeesToXml = new ArrayList<>();
-
-        for (Employee employee : employeeList) {
-            employeesToXml.add(new Employee(employee.getName(),
-                    employee.getHired(),
-                    employee.getFired(),
-                    employee.getSalary(),
-                    inMemoryCurrencyConverter.convert(sourceCurrency, employee.getSalary(), targetCurrency)));
-        }
-
-        JAXBContext context = JAXBContext.newInstance(Employee.Employees.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
-        String xml = "";
-        try (StringWriter writer = new StringWriter()) {
-            marshaller.marshal(new Employee.Employees(employeesToXml), writer);
-            xml = writer.getBuffer().toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return xml;
     }
 }
 
