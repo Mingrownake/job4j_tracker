@@ -11,16 +11,14 @@ import java.util.function.Predicate;
 
 public class ReportJson implements Report {
     private final Store store;
-    private Gson gson;
 
-    public ReportJson(Store store,
-                      Gson gson) {
+    public ReportJson(Store store) {
         this.store = store;
-        this.gson = gson;
     }
 
     @Override
     public String generate(Predicate<Employee> filter) {
+        Gson gson = new Gson().newBuilder().create();
         List<Employee> employeeList = new ArrayList<>(store.findBy(filter));
         return gson.toJson(employeeList);
     }

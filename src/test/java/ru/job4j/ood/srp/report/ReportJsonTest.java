@@ -1,7 +1,5 @@
 package ru.job4j.ood.srp.report;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.store.MemoryStore;
@@ -18,8 +16,7 @@ class ReportJsonTest {
     @Test
     void whenJsonReportIsGenerated() throws JAXBException {
         Store store = new MemoryStore();
-        Gson gson = new GsonBuilder().create();
-        Report report = new ReportJson(store, gson);
+        Report report = new ReportJson(store);
         Employee employee = new Employee("Employee",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
