@@ -56,9 +56,9 @@ class ReportForAccountsDeptTest {
         assertThat(report.generate(findEmployee))
                 .isEqualTo("Name; Hired; Fired; Salary; Converted Salary"
                         + System.lineSeparator()
-                        + "Accountant1 01:01:2017 00:00 01:01:2017 00:00 100.0 100.0"
+                        + "Accountant1 2017-01-01T00:00:00.000+07:00 2017-01-01T00:00:00.000+07:00 100.0 100.0"
                         + System.lineSeparator()
-                        + "Accountant2 01:01:2023 00:00 01:01:2023 00:00 150.0 150.0"
+                        + "Accountant2 2023-01-01T00:00:00.000+07:00 2023-01-01T00:00:00.000+07:00 150.0 150.0"
                         + System.lineSeparator());
     }
 }

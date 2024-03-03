@@ -46,9 +46,9 @@ class ReportForDevDeptTest {
         assertThat(report.generate(findEmployee))
                 .isEqualTo("Name; Hired; Fired; Salary;"
                             + System.lineSeparator()
-                            + "Dev1;01:01:2017 00:00;01:01:2017 00:00;100.0"
+                            + "Dev1;2017-01-01T00:00:00.000+07:00;2017-01-01T00:00:00.000+07:00;100.0"
                             + System.lineSeparator()
-                            + "Dev2;10:01:2024 00:00;15:01:2024 00:00;100.0"
+                            + "Dev2;2024-01-10T00:00:00.000+07:00;2024-01-15T00:00:00.000+07:00;100.0"
                             + System.lineSeparator());
     }
 }
