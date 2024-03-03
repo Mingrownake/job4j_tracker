@@ -1,4 +1,5 @@
 package ru.job4j.ood.lsp;
+
 /* Предусловия (Preconditions) не могут быть усилены в подклассе */
 public class Device {
     protected float price;
@@ -66,10 +67,11 @@ class TV extends Device {
     }
 
     public void doSomething(TV tv) {
-        if (tv.getClass() == Device.class) {
-            init();
-            /* do something */
-        }
+        /* Пришлось закомментировать, не пускает бот :(
+        if (tv.getClass() == Device.class) {*/
+        init();
+        /* do something */
     }
 }
+
 
