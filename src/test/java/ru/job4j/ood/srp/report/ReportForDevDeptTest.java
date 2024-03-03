@@ -10,7 +10,6 @@ import ru.job4j.ood.srp.store.Store;
 
 import javax.xml.bind.JAXBException;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.function.Predicate;
 
 import static org.assertj.core.api.Assertions.*;
@@ -26,17 +25,21 @@ class ReportForDevDeptTest {
 
         Report report = new ReportForDevDept(store, dateTimeParser);
 
+        Calendar now =  Calendar.getInstance();
+
         Employee employee
                 = new Employee("Dev1",
-                new GregorianCalendar(2017, Calendar.JANUARY, 1),
-                new GregorianCalendar(2017, Calendar.JANUARY, 1),
+                now,
+                now,
                 100);
 
         Employee employee1
                 = new Employee("Dev2",
-                new GregorianCalendar(2024, Calendar.JANUARY, 10),
-                new GregorianCalendar(2024, Calendar.JANUARY, 15),
+                now,
+                now,
                 100);
+
+        String date = dateTimeParser.parse(now);
 
         store.add(employee);
         store.add(employee1);
@@ -46,9 +49,9 @@ class ReportForDevDeptTest {
         assertThat(report.generate(findEmployee))
                 .isEqualTo("Name; Hired; Fired; Salary;"
                             + System.lineSeparator()
-                            + "Dev1;2017-01-01T00:00:00.000+07:00;2017-01-01T00:00:00.000+07:00;100.0"
+                            + "Dev1;%s;%s;100.0"
                             + System.lineSeparator()
-                            + "Dev2;2024-01-10T00:00:00.000+07:00;2024-01-15T00:00:00.000+07:00;100.0"
-                            + System.lineSeparator());
+                            + "Dev2;%s;%s;100.0"
+                            + System.lineSeparator(), date, date, date, date);
     }
 }
