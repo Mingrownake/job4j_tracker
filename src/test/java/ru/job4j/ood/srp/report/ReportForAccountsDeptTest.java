@@ -37,19 +37,28 @@ class ReportForAccountsDeptTest {
                 currencyConverter, sourceCurrency, targetCurrency);
 
         Employee employee
-                = new Employee("Accountant",
+                = new Employee("Accountant1",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 100);
 
+        Employee employee1
+                = new Employee("Accountant2",
+                new GregorianCalendar(2023, Calendar.JANUARY, 1),
+                new GregorianCalendar(2023, Calendar.JANUARY, 1),
+                150);
+
         store.add(employee);
+        store.add(employee1);
 
         Predicate<Employee> findEmployee = e -> true;
 
         assertThat(report.generate(findEmployee))
                 .isEqualTo("Name; Hired; Fired; Salary; Converted Salary"
                         + System.lineSeparator()
-                        + "Accountant 01:01:2017 00:00 01:01:2017 00:00 100.0 100.0"
+                        + "Accountant1 01:01:2017 00:00 01:01:2017 00:00 100.0 100.0"
+                        + System.lineSeparator()
+                        + "Accountant2 01:01:2023 00:00 01:01:2023 00:00 150.0 150.0"
                         + System.lineSeparator());
     }
 }

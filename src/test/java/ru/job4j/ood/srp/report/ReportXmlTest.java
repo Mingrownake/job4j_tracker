@@ -2,7 +2,7 @@ package ru.job4j.ood.srp.report;
 
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.srp.formatter.DateTimeParser;
-import ru.job4j.ood.srp.formatter.XmlReportDateTimeParser;
+import ru.job4j.ood.srp.formatter.ReportDateTimeParser;
 import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.store.MemoryStore;
 import ru.job4j.ood.srp.store.Store;
@@ -19,12 +19,12 @@ import static org.assertj.core.api.Assertions.*;
 class ReportXmlTest {
     @Test
     void whenXmlReportIsGenerated() throws JAXBException {
+        
+        DateTimeParser<Calendar> dateTimeParser = new ReportDateTimeParser();
 
         Store store = new MemoryStore();
 
         Calendar now = Calendar.getInstance();
-
-        DateTimeParser<Calendar> parser = new XmlReportDateTimeParser();
 
         JAXBContext context = JAXBContext.newInstance(Employee.class);
 
@@ -39,9 +39,15 @@ class ReportXmlTest {
                 now,
                 100);
 
-        store.add(employee);
+        Employee employee1 = new Employee("Employee1",
+                now,
+                now,
+                100.101);
 
-        String date = parser.parse(now);
+        store.add(employee);
+        store.add(employee1);
+
+        String date = dateTimeParser.parse(now);
 
         Predicate<Employee> findEmployee = e -> true;
 
@@ -50,13 +56,19 @@ class ReportXmlTest {
                         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
                         <employees>
                             <employee>
-                                <fired>%s</fired>
-                                <hired>%s</hired>
                                 <name>Employee</name>
+                                <hired>%s</hired>
+                                <fired>%s</fired>
                                 <salary>100.0</salary>
                             </employee>
+                            <employee>
+                                <name>Employee1</name>
+                                <hired>%s</hired>
+                                <fired>%s</fired>
+                                <salary>100.101</salary>
+                            </employee>
                         </employees>
-                        """, date, date
+                        """, date, date, date, date
                 );
 
     }

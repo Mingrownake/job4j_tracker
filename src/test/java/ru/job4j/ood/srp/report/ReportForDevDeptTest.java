@@ -26,12 +26,19 @@ class ReportForDevDeptTest {
 
         Report report = new ReportForDevDept(store, dateTimeParser);
 
-        Employee employee1
+        Employee employee
                 = new Employee("Dev1",
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 new GregorianCalendar(2017, Calendar.JANUARY, 1),
                 100);
 
+        Employee employee1
+                = new Employee("Dev2",
+                new GregorianCalendar(2024, Calendar.JANUARY, 10),
+                new GregorianCalendar(2024, Calendar.JANUARY, 15),
+                100);
+
+        store.add(employee);
         store.add(employee1);
 
         Predicate<Employee> findEmployee = e -> true;
@@ -40,6 +47,8 @@ class ReportForDevDeptTest {
                 .isEqualTo("Name; Hired; Fired; Salary;"
                             + System.lineSeparator()
                             + "Dev1;01:01:2017 00:00;01:01:2017 00:00;100.0"
+                            + System.lineSeparator()
+                            + "Dev2;10:01:2024 00:00;15:01:2024 00:00;100.0"
                             + System.lineSeparator());
     }
 }

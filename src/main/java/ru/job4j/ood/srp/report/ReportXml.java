@@ -17,8 +17,17 @@ import java.util.function.Predicate;
 public class ReportXml implements Report {
     private final Store store;
 
+    private JAXBContext context;
+
     public ReportXml(Store store) {
         this.store = store;
+
+        try {
+            context = JAXBContext.newInstance(Employees.class);
+
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -26,10 +35,8 @@ public class ReportXml implements Report {
 
         List<Employee> employeeList = new ArrayList<>(store.findBy(filter));
 
-        String xml = "";
+        StringBuilder xml = new StringBuilder();
         try (StringWriter writer = new StringWriter()) {
-
-            JAXBContext context = JAXBContext.newInstance(Employees.class);
 
             Marshaller marshaller = context.createMarshaller();
 
@@ -37,11 +44,11 @@ public class ReportXml implements Report {
 
             marshaller.marshal(new Employees(employeeList), writer);
 
-            xml = writer.getBuffer().toString();
+            xml.append(writer.getBuffer().toString());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return xml;
+        return xml.toString();
     }
 }
