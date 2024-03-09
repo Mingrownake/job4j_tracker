@@ -2,22 +2,23 @@ package ru.job4j.ood.foodstore;
 
 import java.time.LocalDateTime;
 
-public class Food {
+public abstract class Food {
     private String name;
 
-    private LocalDateTime expiryDate;
-
     private LocalDateTime createDate;
+
+    private LocalDateTime expiryDate;
 
     private float price;
 
     private float discount;
 
-    public Food(String name, LocalDateTime expiryDate,
-                LocalDateTime createDate, float price, float discount) {
+    public Food(String name, LocalDateTime createDate,
+                LocalDateTime expiryDate,
+                float price, float discount) {
         this.name = name;
-        this.expiryDate = expiryDate;
         this.createDate = createDate;
+        this.expiryDate = expiryDate;
         this.price = price;
         this.discount = discount;
     }
