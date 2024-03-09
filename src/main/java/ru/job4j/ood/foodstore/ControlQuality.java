@@ -1,17 +1,5 @@
 package ru.job4j.ood.foodstore;
 
-/* Продукт попадает в сервис ControlQuality.
-
-Сервис ControlQuality в зависимости от срока годности
-перекладывает продукты в хранилища: Trash, Warehouse, Shop.
-
-Класс Aggregate содержит ссылку на другой класс и считается владельцем этого класса.
-Каждый класс, на который есть ссылка, считается частью класса Aggregate.
-ControlQuality может работать с 0 и более хранилищами.
-Причем состояние ControlQuality не зависит от Store;
-- Store и ControlQuality имеют связь в виде агрегации.
-*/
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -33,11 +21,11 @@ public class ControlQuality {
     }
 
     public List<Food> retrieveAllFoods() {
-        List<Food> allFoodFromStores = new ArrayList<>();
+        List<Food> allFoodsFromStores = new ArrayList<>();
         for (AbstractStore store : stores) {
-            allFoodFromStores.addAll(store.getFoods());
+            allFoodsFromStores.addAll(store.getFoods());
         }
-        return allFoodFromStores;
+        return allFoodsFromStores;
     }
 
     public void deleteAllFoods() {
