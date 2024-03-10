@@ -1,5 +1,22 @@
 package ru.job4j.ood.parkinglot;
 
+import java.util.List;
+
 public class GroundParking implements Parking {
-    private int lot;
+
+    @Override
+    public void parkTransport(Transport transport) {
+
+    }
+
+    @Override
+    public int getFreeLots() {
+        return 0;
+    }
+
+    @Override
+    public int getOccupiedLots() {
+        return 0;
+    }
+
 }
