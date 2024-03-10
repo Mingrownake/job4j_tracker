@@ -1,7 +1,5 @@
 package ru.job4j.ood.parkinglot;
 
-import java.util.List;
-
 public class MarineParking implements Parking {
 
     @Override
