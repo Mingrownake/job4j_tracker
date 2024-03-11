@@ -12,14 +12,17 @@ public class Truck extends GroundTransport {
         this.number = number;
     }
 
+    @Override
     public int getSize() {
         return size;
     }
 
+    @Override
     public AtomicInteger getNumber() {
         return number;
     }
 
+    @Override
     public void setNumber(AtomicInteger number) {
         this.number = number;
     }

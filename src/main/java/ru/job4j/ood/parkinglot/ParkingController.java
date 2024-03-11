@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ParkingController {
 
-    private boolean hasEnoughLotsToPark(int size) {
+    private boolean hasEnoughParkingLots(int size) {
         return false; /* проверка на доступное место */
     }
 
