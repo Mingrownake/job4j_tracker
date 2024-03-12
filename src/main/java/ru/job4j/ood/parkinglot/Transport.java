@@ -4,9 +4,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public interface Transport {
 
+    int getId();
+
     int getSize();
 
-    AtomicInteger getNumber();
-
-    void setNumber(AtomicInteger number);
+    void setId(int id);
 }

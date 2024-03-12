@@ -4,15 +4,15 @@ import java.util.List;
 
 public class ParkingController {
 
-    private boolean hasEnoughParkingLots(int size) {
+    public boolean hasEnoughParkingLots(int size) {
         return false; /* проверка на доступное место */
     }
 
-    private List<Transport> getAllTransport() {
+    public List<Transport> getAllTransport() {
         return null; /*получить весь транспорт с парковки */
     }
 
-    private void removeAllTransport() {
+    public void removeAllTransport() {
     /* Очистить парковку  */
     }
 }
