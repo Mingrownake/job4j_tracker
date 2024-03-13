@@ -4,10 +4,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Truck extends GroundTransport {
     private int size;
-    private AtomicInteger atomicInteger = new AtomicInteger(1);
+    private int id;
 
-    public Truck(int size) {
-        int id = atomicInteger.getAndIncrement();
+    public Truck(int id, int size) {
+        this.id = id;
         this.size = size;
     }
 
@@ -18,11 +18,11 @@ public class Truck extends GroundTransport {
 
     @Override
     public int getId() {
-        return atomicInteger.get();
+        return id;
     }
 
     @Override
     public void setId(int id) {
-
+        this.id = id;
     }
 }

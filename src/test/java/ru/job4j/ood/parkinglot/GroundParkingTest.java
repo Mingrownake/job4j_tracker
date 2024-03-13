@@ -7,18 +7,18 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Disabled
 class GroundParkingTest {
 
     @Test
     void whenThereIsOneFreeLotThenReceiveOne() {
 
-        List<Transport> parkingLots = new ArrayList<>(2);
+        Vector<Transport> parkingLots = new Vector<>(2);
         Parking parking = new GroundParking(parkingLots);
-        Transport car1 = new Car(1);
+        Transport car1 = new Car(1, 1);
 
         parking.parkTransport(car1);
 
@@ -28,10 +28,10 @@ class GroundParkingTest {
     @Test
     void whenThereIsNoFreeLotThenReceiveZero() {
 
-        List<Transport> parkingLots = new ArrayList<>(2);
+        Vector<Transport> parkingLots = new Vector<>(2);
         Parking parking = new GroundParking(parkingLots);
-        Transport car1 = new Car(1);
-        Transport car2 = new Car(1);
+        Transport car1 = new Car(1, 1);
+        Transport car2 = new Car(1, 1);
 
         parking.parkTransport(car1);
         parking.parkTransport(car2);
@@ -42,19 +42,19 @@ class GroundParkingTest {
     @Test
     void whenThereIsOneLotOccupiedThenReceiveOne() {
 
-        List<Transport> parkingLots = new ArrayList<>(1);
+        Vector<Transport> parkingLots = new Vector<>(1);
         Parking parking = new GroundParking(parkingLots);
-        Transport car1 = new Car(1);
+        Transport car1 = new Car(1, 1);
 
         parking.parkTransport(car1);
 
-        assertThat(parking.getFreeLots()).isEqualTo(1);
+        assertThat(parking.getOccupiedLots()).isEqualTo(1);
     }
 
     @Test
     void whenThereIsNoLotOccupiedThenReceiveZero() {
 
-        List<Transport> parkingLots = new ArrayList<>(1);
+        Vector<Transport> parkingLots = new Vector<>(1);
         Parking parking = new GroundParking(parkingLots);
 
         assertThat(parking.getOccupiedLots()).isEqualTo(0);

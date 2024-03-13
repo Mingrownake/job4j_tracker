@@ -1,14 +1,14 @@
 package ru.job4j.ood.parkinglot;
 
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Car extends GroundTransport {
-    private final int size = 1;
+    private int size;
 
-    private AtomicInteger atomicInteger = new AtomicInteger(1);
+    private int id;
 
-    public Car(int size) {
-        int id = atomicInteger.getAndIncrement();
+    public Car(int id, int size) {
+        this.id = id;
+        this.size = size;
     }
 
     @Override
@@ -18,11 +18,11 @@ public class Car extends GroundTransport {
 
     @Override
     public int getId() {
-        return atomicInteger.get();
+        return id;
     }
 
     @Override
     public void setId(int id) {
-
+        this.id = id;
     }
 }
