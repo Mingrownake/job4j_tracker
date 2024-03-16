@@ -1,13 +1,7 @@
 package ru.job4j.ood.parkinglot;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -17,10 +11,14 @@ class GroundParkingTest {
     void whenThereIsOneFreeLotThenReceiveOneFree() {
 
         Transport[] parkingLots = new Transport[2];
+
         Parking parking = new GroundParking(parkingLots);
+
+        ParkingController parkingController = new ParkingController(parking);
+
         Transport car1 = new Car(1, 1);
 
-        parking.parkTransport(car1);
+        parkingController.parkTransport(car1);
 
         assertThat(parking.getFreeLots()).isEqualTo(1);
     }
@@ -32,13 +30,15 @@ class GroundParkingTest {
 
         Parking parking = new GroundParking(parkingLots);
 
+        ParkingController parkingController = new ParkingController(parking);
+
         Transport car1 = new Car(1, 1);
 
-        Transport car2 = new Car(1, 1);
+        Transport car2 = new Car(2, 1);
 
-        parking.parkTransport(car1);
+        parkingController.parkTransport(car1);
 
-        parking.parkTransport(car2);
+        parkingController.parkTransport(car2);
 
         assertThat(parking.getFreeLots()).isEqualTo(0);
     }
@@ -50,9 +50,11 @@ class GroundParkingTest {
 
         Parking parking = new GroundParking(parkingLots);
 
+        ParkingController parkingController = new ParkingController(parking);
+
         Transport car1 = new Car(1, 1);
 
-        parking.parkTransport(car1);
+        parkingController.parkTransport(car1);
 
         assertThat(parking.getOccupiedLots()).isEqualTo(1);
     }
@@ -74,9 +76,15 @@ class GroundParkingTest {
 
         Parking parking = new GroundParking(parkingLots);
 
-        Transport truck1 = new Truck(1, 5);
+        ParkingController parkingController = new ParkingController(parking);
 
-        parking.parkTransport(truck1);
+        Transport truck1 = new Truck(1, 2);
+        Transport truck2 = new Truck(2, 2);
+        Transport car1 = new Car(1, 1);
+
+        parkingController.parkTransport(car1);
+        parkingController.parkTransport(truck1);
+        parkingController.parkTransport(truck2);
 
         assertThat(parking.getOccupiedLots()).isEqualTo(5);
 

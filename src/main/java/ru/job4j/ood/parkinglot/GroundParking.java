@@ -1,7 +1,5 @@
 package ru.job4j.ood.parkinglot;
 
-import java.util.Vector;
-
 public class GroundParking implements Parking {
 
     private Transport[] parkingLots;
@@ -13,15 +11,6 @@ public class GroundParking implements Parking {
     }
 
     @Override
-    public void parkTransport(Transport transport) {
-        int i;
-        for (i = freeLotIndex; i < transport.getSize(); i++) {
-            parkingLots[i] = transport;
-        }
-        freeLotIndex += i;
-    }
-
-    @Override
     public int getFreeLots() {
         return parkingLots.length
                 - freeLotIndex;
@@ -30,5 +19,23 @@ public class GroundParking implements Parking {
     @Override
     public int getOccupiedLots() {
         return freeLotIndex;
+    }
+
+    public Transport[] getParkingLots() {
+        return parkingLots;
+    }
+
+    public void setParkingLots(Transport[] parkingLots) {
+        this.parkingLots = parkingLots;
+    }
+
+    @Override
+    public int getFreeLotIndex() {
+        return freeLotIndex;
+    }
+
+    @Override
+    public void setNewFreeLotIndex(int updatedFreeLotIndex) {
+        this.freeLotIndex = updatedFreeLotIndex;
     }
 }

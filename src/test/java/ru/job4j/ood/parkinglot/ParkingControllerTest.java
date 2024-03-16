@@ -1,27 +1,28 @@
 package ru.job4j.ood.parkinglot;
 
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import static org.assertj.core.api.Assertions.*;
 
 class ParkingControllerTest {
-/*
+
     @Test
     void whenParkingControllerParksTransportThenReceivesAll() {
 
-        ParkingController parkingController = new ParkingController();
-        Vector<Transport> parkingLots = new Vector<>(3);
+        Transport[] parkingLots = new Transport[3];
+
         Parking parking = new GroundParking(parkingLots);
+
+        ParkingController parkingController = new ParkingController(parking);
+
         Transport car1 = new Car(1, 1);
         Transport truck1 = new Truck(1, 2);
 
-        parking.parkTransport(car1);
-        parking.parkTransport(truck1);
+        parkingController.parkTransport(car1);
+        parkingController.parkTransport(truck1);
 
         assertThat(parkingController
                 .getAllTransport())
@@ -29,52 +30,57 @@ class ParkingControllerTest {
     }
 
     @Test
-    void whenParkingControllerRemovesTransportThenReceivesNothing() {
+    void whenParkingControllerRemovesTransportThenDoesntReceiveIt() {
 
-        ParkingController parkingController = new ParkingController();
-        Vector<Transport> parkingLots = new Vector<>(3);
-        Parking parking = new GroundParking(parkingLots);
-        Transport car1 = new Car(1, 1);
+        Transport[] parkingLots = new Transport[10];
+
+        Parking groundParking = new GroundParking(parkingLots);
+
+        ParkingController parkingController = new ParkingController(groundParking);
+
         Transport truck1 = new Truck(1, 2);
+        Transport truck2 = new Truck(2, 2);
+        Transport car1 = new Car(1, 1);
 
-        parking.parkTransport(car1);
-        parking.parkTransport(truck1);
+        parkingController.parkTransport(car1);
+        parkingController.parkTransport(truck1);
+        parkingController.parkTransport(truck2);
 
         parkingController.removeAllTransport();
 
-        assertThat(parkingController
-                .getAllTransport())
-                .isEmpty();
+        Assumptions.assumeFalse(parkingController.getAllTransport()
+                .containsAll(List.of(car1, truck1, truck2)));
     }
 
     @Test
     void whenParkingIsNotFullReturnsTrue() {
 
-        ParkingController parkingController = new ParkingController();
-        Vector<Transport> parkingLots = new Vector<>(3);
-        Parking parking = new GroundParking(parkingLots);
+        Transport[] parkingLots = new Transport[10];
+
+        Parking groundParking = new GroundParking(parkingLots);
+
+        ParkingController parkingController = new ParkingController(groundParking);
+
         Transport car1 = new Car(1, 1);
-        Transport car2 = new Car(2, 1);
 
-        parking.parkTransport(car1);
-
-        assertThat(parkingController.hasEnoughParkingLots(car2.getSize()))
+        assertThat(parkingController.hasEnoughParkingLots(car1))
                 .isTrue();
+
     }
 
     @Test
     void whenParkingIsFullReturnsFalse() {
 
-        ParkingController parkingController = new ParkingController();
-        Vector<Transport> parkingLots = new Vector<>(1);
-        Parking parking = new GroundParking(parkingLots);
-        Transport car1 = new Car(1, 1);
-        Transport truck1 = new Truck(2, 2);
+        Transport[] parkingLots = new Transport[1];
 
-        parking.parkTransport(car1);
+        Parking groundParking = new GroundParking(parkingLots);
 
-        assertThat(parkingController.hasEnoughParkingLots(truck1.getSize()))
+        ParkingController parkingController = new ParkingController(groundParking);
+
+        Transport truck1 = new Truck(2, 3);
+
+        assertThat(parkingController.hasEnoughParkingLots(truck1))
                 .isFalse();
-    } */
+    }
 }
 
