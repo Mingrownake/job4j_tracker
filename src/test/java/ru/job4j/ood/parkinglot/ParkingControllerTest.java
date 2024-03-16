@@ -8,16 +8,15 @@ import java.util.List;
 import java.util.Vector;
 
 import static org.assertj.core.api.Assertions.*;
-/*
-@Disabled
-class ParkingControllerTest {
 
+class ParkingControllerTest {
+/*
     @Test
     void whenParkingControllerParksTransportThenReceivesAll() {
 
         ParkingController parkingController = new ParkingController();
         Vector<Transport> parkingLots = new Vector<>(3);
-        Parking parking = new GroundParking();
+        Parking parking = new GroundParking(parkingLots);
         Transport car1 = new Car(1, 1);
         Transport truck1 = new Truck(1, 2);
 
@@ -67,17 +66,15 @@ class ParkingControllerTest {
     void whenParkingIsFullReturnsFalse() {
 
         ParkingController parkingController = new ParkingController();
-        Vector<Transport> parkingLots = new Vector<>(3);
+        Vector<Transport> parkingLots = new Vector<>(1);
         Parking parking = new GroundParking(parkingLots);
         Transport car1 = new Car(1, 1);
         Transport truck1 = new Truck(2, 2);
-        Transport truck2 = new Truck(2, 2);
 
         parking.parkTransport(car1);
-        parking.parkTransport(truck1);
 
-        assertThat(parkingController.hasEnoughParkingLots(truck2.getSize()))
+        assertThat(parkingController.hasEnoughParkingLots(truck1.getSize()))
                 .isFalse();
-    }
+    } */
 }
-*/
+

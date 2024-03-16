@@ -4,27 +4,31 @@ import java.util.Vector;
 
 public class GroundParking implements Parking {
 
-    private  Vector<Transport> parkingLots = new Vector<>();
+    private Transport[] parkingLots;
 
-    public GroundParking(Vector<Transport> parkingLots) {
+    private int freeLotIndex; /*Свободное место, с кторого начинать парковать */
+
+    public GroundParking(Transport[] parkingLots) {
         this.parkingLots = parkingLots;
     }
 
     @Override
     public void parkTransport(Transport transport) {
-        parkingLots.add(transport);
-
+        int i;
+        for (i = freeLotIndex; i < transport.getSize(); i++) {
+            parkingLots[i] = transport;
+        }
+        freeLotIndex += i;
     }
 
     @Override
     public int getFreeLots() {
-        return parkingLots.capacity()
-                - parkingLots.size();
+        return parkingLots.length
+                - freeLotIndex;
     }
 
     @Override
     public int getOccupiedLots() {
-        return parkingLots.size();
+        return freeLotIndex;
     }
-
 }
