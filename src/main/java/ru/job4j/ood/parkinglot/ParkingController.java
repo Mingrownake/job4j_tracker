@@ -36,7 +36,6 @@ public class ParkingController {
                 groundParking.getParkingLots()[index] = transport;
             }
             groundParking.setNewFreeLotIndex(index);
-
         }
 
     }

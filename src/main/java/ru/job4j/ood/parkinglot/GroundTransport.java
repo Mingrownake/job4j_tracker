@@ -24,5 +24,4 @@ public abstract class GroundTransport implements Transport {
     public void setId(int id) {
         this.id = id;
     }
-
 }

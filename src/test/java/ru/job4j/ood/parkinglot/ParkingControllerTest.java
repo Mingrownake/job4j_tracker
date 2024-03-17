@@ -38,8 +38,8 @@ class ParkingControllerTest {
 
         ParkingController parkingController = new ParkingController(groundParking);
 
-        Transport truck1 = new Truck(1, 2);
-        Transport truck2 = new Truck(2, 2);
+        Transport truck1 = new Truck(2, 2);
+        Transport truck2 = new Truck(3, 2);
         Transport car1 = new Car(1, 1);
 
         parkingController.parkTransport(car1);
@@ -69,7 +69,7 @@ class ParkingControllerTest {
     }
 
     @Test
-    void whenParkingIsFullReturnsFalse() {
+    void whenParkingCannotPutTransportThenReturnsFalse() {
 
         Transport[] parkingLots = new Transport[1];
 
