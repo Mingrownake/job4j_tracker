@@ -33,11 +33,9 @@ class GroundParkingTest {
         ParkingController parkingController = new ParkingController(parking);
 
         Transport car1 = new Car(1, 1);
-
         Transport car2 = new Car(2, 1);
 
         parkingController.parkTransport(car1);
-
         parkingController.parkTransport(car2);
 
         assertThat(parking.getFreeLots()).isEqualTo(0);

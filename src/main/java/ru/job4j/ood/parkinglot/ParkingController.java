@@ -31,12 +31,12 @@ public class ParkingController {
     public void parkTransport(Transport transport) {
         if (hasEnoughParkingLots(transport)) {
             int index = groundParking.getFreeLotIndex();
-            for (int i = index; i < transport.getSize() + index; i++) {
-                groundParking.getParkingLots()[i] = transport;
-                i++;
-                index++;
+            for (int i = index;
+                            index < transport.getSize() + i; index++) {
+                groundParking.getParkingLots()[index] = transport;
             }
             groundParking.setNewFreeLotIndex(index);
+
         }
 
     }
