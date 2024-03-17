@@ -63,7 +63,8 @@ class ParkingControllerTest {
 
         Transport car1 = new Car(1, 1);
 
-        assertThat(parkingController.hasEnoughParkingLots(car1))
+        assertThat(parkingController
+                .hasEnoughParkingLots(car1))
                 .isTrue();
 
     }
@@ -79,7 +80,8 @@ class ParkingControllerTest {
 
         Transport truck1 = new Truck(2, 3);
 
-        assertThat(parkingController.hasEnoughParkingLots(truck1))
+        assertThat(parkingController
+                .hasEnoughParkingLots(truck1))
                 .isFalse();
     }
 
