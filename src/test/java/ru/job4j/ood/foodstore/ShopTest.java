@@ -48,4 +48,28 @@ class ShopTest {
         assertThat(cheese.getDiscount()).isEqualTo(20);
     }
 
+    @Test
+    void whenControlQualityUsesResortThenFoodIsSendToShopAnew() {
+
+        LocalDateTime createdDate = LocalDateTime.now().minusDays(8);
+        LocalDateTime expiryDate = LocalDateTime.now().plusDays(7);
+
+        AbstractStore warehouse = new Warehouse();
+        AbstractStore shop = new Shop();
+        AbstractStore trash = new Trash();
+
+        Food cheese = new DairyProducts("cheese", createdDate, expiryDate, 490.85f, 0);
+        Food cream = new DairyProducts("cream", createdDate, expiryDate, 120.00f, 0);
+
+        ControlQuality controlQuality
+                = new ControlQuality(List.of(shop, warehouse, trash));
+
+        controlQuality.distributeFood(cheese);
+        controlQuality.distributeFood(cream);
+
+        controlQuality.resort();
+
+        assertThat(shop.getFoods()).contains(cheese, cream);
+    }
+
 }

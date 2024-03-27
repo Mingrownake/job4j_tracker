@@ -25,4 +25,28 @@ class WarehouseTest {
         controlQuality.distributeFood(tinnedMeat);
         assertThat(warehouse.getFoods()).contains(tinnedMeat);
     }
+
+    @Test
+    void whenControlQualityUsesResortThenFoodIsSendToWarehouseAnew() {
+
+        LocalDateTime createdDate = LocalDateTime.now().minusDays(30);
+        LocalDateTime expiryDate = LocalDateTime.now().plusDays(360);
+
+        AbstractStore warehouse = new Warehouse();
+        AbstractStore shop = new Shop();
+        AbstractStore trash = new Trash();
+
+        Food tinnedMeat = new TinnedFood("tinnedMeat", createdDate, expiryDate, 100, 0);
+        Food condensedMilk = new DairyProducts("condensedMilk", createdDate, expiryDate, 100, 0);
+
+        ControlQuality controlQuality
+                = new ControlQuality(List.of(shop, warehouse, trash));
+
+        controlQuality.distributeFood(tinnedMeat);
+        controlQuality.distributeFood(condensedMilk);
+
+        controlQuality.resort();
+
+        assertThat(warehouse.getFoods()).contains(tinnedMeat, condensedMilk);
+    }
 }

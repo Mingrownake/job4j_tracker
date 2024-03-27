@@ -37,5 +37,9 @@ public class ControlQuality {
             }
         }
     }
+
+    public void resort() {
+        retrieveAllFoods().forEach(this::distributeFood);
+    }
 }
 

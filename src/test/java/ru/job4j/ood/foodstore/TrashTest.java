@@ -44,4 +44,28 @@ class TrashTest {
         controlQuality.distributeFood(milk);
         assertThat(trash.getFoods()).contains(milk);
     }
+
+    @Test
+    void whenControlQualityUsesResortThenFoodIsSendToTrashAnew() {
+
+        LocalDateTime createdDate = LocalDateTime.now().minusDays(1800);
+        LocalDateTime expiryDate = LocalDateTime.now();
+
+        AbstractStore warehouse = new Warehouse();
+        AbstractStore shop = new Shop();
+        AbstractStore trash = new Trash();
+
+        Food cheese = new DairyProducts("cheese", createdDate, expiryDate, 490.85f, 0);
+        Food beef = new TinnedFood("beef", createdDate, expiryDate, 120.00f, 0);
+
+        ControlQuality controlQuality
+                = new ControlQuality(List.of(shop, warehouse, trash));
+
+        controlQuality.distributeFood(cheese);
+        controlQuality.distributeFood(beef);
+
+        controlQuality.resort();
+
+        assertThat(trash.getFoods()).contains(cheese, beef);
+    }
 }
