@@ -1,7 +1,11 @@
 package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -56,6 +60,22 @@ public class StartUITest {
         );
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findById(item.getId())).isNull();
+    }
+
+    @Test
+    public void whenDeleteItemMock() {
+        Output out = new StubOutput();
+        MemTracker tracker = new MemTracker();
+        DeleteAction deleteAction = new DeleteAction(out);
+        tracker.add(new Item("Deleted item"));
+        Input in = mock(Input.class);
+        when(in.askInt(any(String.class))).thenReturn(1);
+        deleteAction.execute(in, tracker);
+        String ln = System.lineSeparator();
+        assertThat(out.toString()).isEqualTo(
+                "=== Delete item ===" + ln
+                + "The item has been deleted." + ln
+        );
     }
 
     @Test
@@ -132,6 +152,27 @@ public class StartUITest {
     }
 
     @Test
+    public void whenFindByIdItemMock() {
+        Output out = new StubOutput();
+        MemTracker tracker = new MemTracker();
+        Item item = tracker.add(new Item("Item"));
+        Input in = mock(Input.class);
+        FindByIdAction findByIdAction = new FindByIdAction(out);
+        when(in.askInt(any(String.class))).thenReturn(1);
+        findByIdAction.execute(in, tracker);
+        String ls = System.lineSeparator();
+        assertThat(out.toString()).isEqualTo(
+                "=== Look up by item's id ===" + ls
+                + "Item{"
+                        + "id=" + item.getId()
+                        + ", name='" + item.getName() + '\''
+                        + ", created=" + item.getLocalDateTime()
+                        .format(DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss"))
+                        + '}' + ls
+        );
+    }
+
+    @Test
     public void whenFindByNameItem() {
         Output out = new StubOutput();
         MemTracker tracker = new MemTracker();
@@ -155,6 +196,27 @@ public class StartUITest {
                         + "0. Find Item by Name." + ln
                         + "1. Exit the App." + ln
                         + "=== Exit Program ===" + ln
+        );
+    }
+
+    @Test
+    public void whenFindByNameItemMock() {
+        Output out = new StubOutput();
+        MemTracker tracker = new MemTracker();
+        Item item = tracker.add(new Item("Item"));
+        Input in = mock(Input.class);
+        FindByNameAction findByNameAction = new FindByNameAction(out);
+        when(in.askStr(any(String.class))).thenReturn("Item");
+        findByNameAction.execute(in, tracker);
+        String ls = System.lineSeparator();
+        assertThat(out.toString()).isEqualTo(
+                "=== Look up by item's name ===" + ls
+                + "Item{"
+                        + "id=" + item.getId()
+                        + ", name='" + item.getName() + '\''
+                        + ", created=" + item.getLocalDateTime()
+                        .format(DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss"))
+                        + '}' + ls
         );
     }
 
