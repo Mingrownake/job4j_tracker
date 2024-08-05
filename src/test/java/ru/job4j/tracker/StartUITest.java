@@ -163,12 +163,7 @@ public class StartUITest {
         String ls = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
                 "=== Look up by item's id ===" + ls
-                + "Item{"
-                        + "id=" + item.getId()
-                        + ", name='" + item.getName() + '\''
-                        + ", created=" + item.getLocalDateTime()
-                        .format(DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss"))
-                        + '}' + ls
+                + item + ls
         );
     }
 
@@ -211,12 +206,7 @@ public class StartUITest {
         String ls = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
                 "=== Look up by item's name ===" + ls
-                + "Item{"
-                        + "id=" + item.getId()
-                        + ", name='" + item.getName() + '\''
-                        + ", created=" + item.getLocalDateTime()
-                        .format(DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss"))
-                        + '}' + ls
+                + item + ls
         );
     }
 
