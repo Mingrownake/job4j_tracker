@@ -1,15 +1,13 @@
 package ru.job4j.lombok;
 
-import java.util.ArrayList;
+import org.mapstruct.factory.Mappers;
 
 public class LombokUsage {
     public static void main(String[] args) {
-        Permission permission = Permission.of()
-                .id(5)
-                .name("Admin")
-                .roles("Create")
-                .roles("Delete")
-                .build();
-        System.out.println(permission.toString());
+        StudentMapper studentMapper = Mappers.getMapper(StudentMapper.class);
+        StudentEntity studentEntity = new StudentEntity(1, "Admin");
+        StudentAddress studentAddress = new StudentAddress("Kirov", "Lenina");
+        StudentDTO studentDTO = studentMapper.getModelFromEntity(studentEntity, studentAddress);
+        System.out.println(studentDTO);
     }
 }
